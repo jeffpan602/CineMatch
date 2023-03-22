@@ -1,23 +1,17 @@
-import './App.css'
+import './Search.css'
 import React from 'react';
 import CineMatchNavBar from './CineMatchNavBar';
 import MovieList from './components/MovieList';
 import { MoviePopup } from './components/MoviePopup';
 
-class App extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
-      toWatch: [],
-      watched: [],
       selected: {}
     };
     this.fetchMovies = this.fetchMovies.bind(this);
-
-    this.addToWatchList = this.addToWatchList.bind(this);
-    this.addToWatchedList = this.addToWatchedList.bind(this);
-
     this.openMovie = this.openMovie.bind(this);
     this.closeMovie = this.closeMovie.bind(this);
   }
@@ -37,20 +31,6 @@ class App extends React.Component {
       });
   }
 
-  addToWatchList(movie) {
-    if(!this.state.toWatch.includes(movie)) {
-      const newToWatch = [ ...this.state.toWatch, movie];
-      this.setState({toWatch: newToWatch}, () => {console.log(this.state.toWatch)});
-    }
-  }
-
-  addToWatchedList(movie) {
-    if(!this.state.watched.includes(movie)) {
-      const newWatched = [ ...this.state.watched, movie];
-      this.setState({watched: newWatched}, () => {console.log(this.state.watched)})
-    }
-  }
-
   openMovie(movie) {
     this.setState({selected: movie}, () => {console.log(this.state.selected.title)})
   }
@@ -68,15 +48,11 @@ class App extends React.Component {
                 <CineMatchNavBar onSearch={this.fetchMovies}/>
                 {/*Return JSX containing individual movie results*/}
                 <MovieList movies={movies} openPopup={this.openMovie}/>
-                {(typeof this.state.selected.title != "undefined") ? 
-                  <MoviePopup movie={this.state.selected} 
-                              close={this.closeMovie} 
-                              toWatch={this.addToWatchList}
-                              watched={this.addToWatchedList}/> : false}
+                {(typeof this.state.selected.title != "undefined") ? <MoviePopup movie={this.state.selected} close={this.closeMovie} /> : false}
             </main>
         </div>
     );
   }
 }
 
-export default App;
+export default Search;
