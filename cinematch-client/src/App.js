@@ -29,8 +29,9 @@ class App extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        /*returns results sorted by popularity score*/
-        this.setState({ movies: data.results.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1) });
+        // returns results sorted by popularity score
+        // filtering out anything with no ratings to counteract random crap
+        this.setState({ movies: data.results.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1).filter(movie => movie.vote_count > 0 || movie.vote_average === 0) });
       })
       .catch(error => {
         console.error(error);
@@ -53,6 +54,7 @@ class App extends React.Component {
 
   openMovie(movie) {
     this.setState({selected: movie}, () => {console.log(this.state.selected.title)})
+    console.log(movie.vote_average);
   }
 
   closeMovie() {

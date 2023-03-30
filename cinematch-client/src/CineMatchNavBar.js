@@ -27,7 +27,6 @@ class CineMatchNavBar extends React.Component {
 
     handleSearchSubmit() {
         this.props.onSearch(this.state.searchQuery);
-        this.props.fetchMovies(this.state.searchQuery);
     }
 
     handleKeyDown = (e) => {
@@ -38,7 +37,7 @@ class CineMatchNavBar extends React.Component {
 
     render() {
         return (
-        <AppBar position="static" style={{backgroundColor:"navy", color:"white"}}>
+        <AppBar position="static" style={{backgroundColor: "rgb(60, 60, 62)", color:"white"}}>
             <Toolbar>
             <h1>CineMatch</h1>
             <div style={{ flexGrow: 1 }} />

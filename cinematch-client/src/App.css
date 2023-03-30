@@ -1,9 +1,8 @@
 .Search {
-  background-color:rgb(213, 213, 213);
+  background-color:rgb(35, 35, 35);
 }
 
 .Movielist {
-  background-color: darkred;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,14 +11,15 @@
 
 .movie {
   flex-basis: calc(100% / 6);
-  padding: 20px;
+  margin: 20px;
   text-align: center;
 }
 
 /* definitely will need to refactor but for now i'll put it here with Alex's stuff*/
 .movie-card{
-  margin: 20px;
+  margin: 10px;
   border-radius: 3px;
+  border-color: aliceblue;
   /*background-color: rgb(213, 213, 213);*/
 }
 
@@ -27,24 +27,29 @@
   cursor: pointer;
   transform: scale(1.025);
   transition: 0.125s ease;
-  background-color: rgb(185, 185, 185);
+  background-color: rgb(15, 15, 15, 0.75);
 }
 
-.movie img {
+.movie-card img {
   width: 100%;
-  /*movie posters typically follow 2:3 aspect ratio
-    very few posters won't be this size so we'll be evil
-    also this doesnt even do what i want it to do*/
-  height: 150%;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  position: relative;
+  top: 0;
 }
+
+.movie-card .poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+}
+
 
 .movie-card .empty-poster {
-  /*total hack*/
-  width: 214px;
-  height: 319px;
-  background-color: rgb(185, 185, 185);
+  width: 100%;
+  height: 100%;
+  background-color: rgb(97, 97, 97);
+}
+
+.movie-info {
+  color: aliceblue;
 }
 
 .movie-info h2 {
@@ -53,6 +58,23 @@
   margin-right: 5px;
   font-size: 16px;
   font-weight: bold;
+}
+
+.movie-card:hover .movie-info h2 {
+  animation: text-shine 5s linear infinite;
+  background: linear-gradient(to right, #78f3ca, #8b2a45, #78f3ca);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes text-shine {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
 }
 
 .movie-info p {
