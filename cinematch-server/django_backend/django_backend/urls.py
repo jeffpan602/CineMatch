@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from to_watch import views
+from to_watch import views as toWatchViews
+from watched import views as watchedViews
 
 router = routers.DefaultRouter()
-router.register(r'to_watch', views.to_watchView, 'to_watch')
+router.register(r'to_watch', toWatchViews.to_watchView, 'to_watch')
+router.register(r'watched',  watchedViews.watchedView, 'watched')
 
 
 urlpatterns = [
