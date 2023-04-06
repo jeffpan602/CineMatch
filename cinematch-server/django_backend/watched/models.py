@@ -5,7 +5,8 @@ from django.db import models
 
 class watched(models.Model):
     movie_id = models.IntegerField(primary_key=True)
-    rating = models.TextField()
+    rating = models.IntegerField()
+    review = models.TextField()
 
     def _str_(self):
         return "Movie ID: " + self.movie_id
