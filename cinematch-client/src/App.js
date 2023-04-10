@@ -4,8 +4,7 @@ import MovieIcon from '@mui/icons-material/Movie';
 import Button from '@mui/material/Button';
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import Box from '@mui/material/Box';
-
-
+import { useTable } from "react-table";
 
 function App() {
   return (
