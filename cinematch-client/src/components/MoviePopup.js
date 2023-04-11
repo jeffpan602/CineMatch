@@ -4,7 +4,10 @@ export const MoviePopup = ({movie, close, toWatch, watched}) => {
   return (
     <div className='popup'>
         <div className='content'>
-            <h2>{movie.title} 
+            <div className='title'>
+                <h2>{movie.title}</h2>
+            </div>
+            <h2>
                 <span>{movie.release_date ? (
                         <p>{new Date(movie.release_date).getFullYear()}</p>
                     ) : (
@@ -12,6 +15,7 @@ export const MoviePopup = ({movie, close, toWatch, watched}) => {
                     )}
                 </span>
             </h2>
+            
             <p className="rating">Rating: {movie.vote_average} </p>
             <div className="stuff">
                 {movie.poster_path ? (
@@ -21,7 +25,12 @@ export const MoviePopup = ({movie, close, toWatch, watched}) => {
                     <div className="empty-poster"/>
                 )}
             </div>
-            <button className="close" onClick={close}>Close</button>
+            <div className="description">
+                <p>
+                    {movie.overview}
+                </p>
+            </div>
+            <a class="close" onClick={close}>&times;</a>
             <button className="add" onClick={() => toWatch(movie)}>Add to Watchlist</button>
             <button classname="add" onClick={() => watched(movie)}>Watched</button>
         </div>

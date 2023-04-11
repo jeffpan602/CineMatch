@@ -1,8 +1,11 @@
 import './App.css'
 import React from 'react';
-import CineMatchNavBar from './CineMatchNavBar';
+import NavBar from './components/NavBar';
 import MovieList from './components/MovieList';
 import { MoviePopup } from './components/MoviePopup';
+
+const API_URL = "https://api.themoviedb.org/3";
+const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +14,8 @@ class App extends React.Component {
       movies: [],
       toWatch: [],
       watched: [],
-      selected: {}
+      selected: {},
+      searching: false
     };
     this.fetchMovies = this.fetchMovies.bind(this);
 
@@ -23,8 +27,9 @@ class App extends React.Component {
   }
 
   fetchMovies(searchQuery) {
-    const apiKey = "b5d2f69cf0491ce4441c4d04c4befc3d";
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${searchQuery}`;
+    this.setState({searching : true});
+
+    const url = `${API_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${searchQuery}`;
 
     fetch(url)
       .then(response => response.json())
@@ -32,6 +37,19 @@ class App extends React.Component {
         // returns results sorted by popularity score
         // filtering out anything with no ratings to counteract random crap
         this.setState({ movies: data.results.sort((a, b) => (a.popularity < b.popularity) ? 1 : -1).filter(movie => movie.vote_count > 0 || movie.vote_average === 0) });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  trendingMovies() {
+    const url = `${API_URL}/trending/movie/week?api_key=${API_KEY}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({movies : data.results});
       })
       .catch(error => {
         console.error(error);
@@ -62,13 +80,18 @@ class App extends React.Component {
   }
 
   render() {
+    if(this.state.searching === false) {
+      this.trendingMovies();
+    }
+
     const { movies } = this.state;
+    
+
     return (
-        <div className="Search">
+        <div className="App">
             <main>
-                {/*<h1>CineMatch</h1>*/}
-                <CineMatchNavBar onSearch={this.fetchMovies}/>
-                {/*Return JSX containing individual movie results*/}
+                <NavBar onSearch={this.fetchMovies}/>
+
                 <MovieList movies={movies} openPopup={this.openMovie}/>
                 {(typeof this.state.selected.title != "undefined") ? 
                   <MoviePopup movie={this.state.selected} 

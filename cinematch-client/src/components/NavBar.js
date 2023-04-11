@@ -9,7 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import MovieIcon from '@mui/icons-material/Movie';
 
-class CineMatchNavBar extends React.Component {
+class NavBar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -37,7 +37,7 @@ class CineMatchNavBar extends React.Component {
 
     render() {
         return (
-        <AppBar position="static" style={{backgroundColor: "rgb(60, 60, 62)", color:"white"}}>
+        <AppBar position="sticky" style={{backgroundColor: "rgb(60, 60, 62)", color:"white"}}>
             <Toolbar>
             <h1>CineMatch</h1>
             <div style={{ flexGrow: 1 }} />
@@ -75,4 +75,4 @@ class CineMatchNavBar extends React.Component {
     }
 }
 
-export default CineMatchNavBar;
+export default NavBar;
