@@ -14,6 +14,9 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
+  const addToWatchList = () => setShow(false);
+  const addToSeenList = () => setShow(false);
+
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
@@ -77,7 +80,10 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <p>{overview}</p>
             </Modal.Body>
             <Modal.Footer>
+              <Button variant="secondary" onClick={addToSeenList}>Add to Seen List</Button>
+              <Button variant="secondary" onClick={addToWatchList}>Add to Watch Later</Button>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
+              
             </Modal.Footer>
           </Modal>
         </div>
