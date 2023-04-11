@@ -8,14 +8,20 @@ const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 const CineMatch = ({ title, poster_path, vote_average, release_date, overview, id }) => {
 
   const [show, setShow] = useState(false);
+  const [watch_show, setWatchShow] = useState(false);
+  const [seen_show, setSeenShow] = useState(false);
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState("");
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const handleWatchShow = () => { setWatchShow(true); setShow(false);};
+  const handleWatchClose = () => setWatchShow(false);
+  const handleSeenShow = () => { setSeenShow(true); setShow(false);};
+  const handleSeenClose = () => setSeenShow(false);
 
-  const addToWatchList = () => setShow(false);
-  const addToSeenList = () => setShow(false);
+  const addToWatchList = () => setWatchShow(false);
+  const addToSeenList = () => setSeenShow(false);
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -80,9 +86,43 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <p>{overview}</p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToSeenList}>Add to Seen List</Button>
-              <Button variant="secondary" onClick={addToWatchList}>Add to Watch Later</Button>
+              <Button variant="secondary" onClick={handleSeenShow}>Add to Seen List</Button>
+              <Button variant="secondary" onClick={handleWatchShow}>Add to Watch Later</Button>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
+              
+            </Modal.Footer>
+          </Modal>
+          
+          <Modal show={watch_show} onHide={handleWatchClose}>
+            <Modal.Header closeButton>
+              <Modal.Title></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h3>Add "{title}" to Watch List?</h3>
+              <br></br>
+              <br></br>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={addToWatchList}>Add to Watch Later</Button>
+              <Button variant="secondary" onClick={handleWatchClose}>Cancel</Button>
+              
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={seen_show} onHide={handleSeenClose}>
+            <Modal.Header closeButton>
+              <Modal.Title></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h3>Add "{title}" to Seen List?</h3>
+              <br></br>
+              <br></br>
+              <h6>My Rating</h6>
+              <input type="text" placeholder="Rating (0-10)" />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={addToSeenList}>Add to Seen List</Button>
+              <Button variant="secondary" onClick={handleSeenClose}>Cancel</Button>
               
             </Modal.Footer>
           </Modal>
