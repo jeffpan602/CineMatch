@@ -35,8 +35,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
-  const addToWatchList = () => setWatchShow(false); // change this to add movie id to database
-  const addToSeenList = () => setSeenShow(false);  // change this to add movie id and rating to database
+  const addToWatchList = () => {setWatchShow(false);}; // change this to add movie id to database
+  const addToSeenList = (id, userRating) => {setSeenShow(false);};  // change this to add movie id and rating to database
 
 
   useEffect(() => {
@@ -145,7 +145,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
              
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToSeenList}>Add to Seen List</Button>
+              <Button variant="secondary" onClick={() => addToSeenList({id}, {userRating})}>Add to Seen List</Button>
               <Button variant="secondary" onClick={handleSeenClose}>Cancel</Button>
              
             </Modal.Footer>
