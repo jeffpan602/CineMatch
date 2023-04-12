@@ -11,8 +11,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
   const [show, setShow] = useState(false);
-  const [watch_show, setWatchShow] = useState(false);
-  const [seen_show, setSeenShow] = useState(false);
+  const [towatch_show, setToWatchShow] = useState(false);
+  const [watched_show, setWatchedShow] = useState(false);
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState("");
 
@@ -27,16 +27,16 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const handleWatchShow = () => { setWatchShow(true); setShow(false); };
-  const handleWatchClose = () => setWatchShow(false);
-  const handleSeenShow = () => { setSeenShow(true); setShow(false); };
-  const handleSeenClose = () => setSeenShow(false);
+  const handleToWatchShow = () => { setToWatchShow(true); setShow(false); };
+  const handleToWatchClose = () => setToWatchShow(false);
+  const handleWatchedShow = () => { setWatchedShow(true); setShow(false); };
+  const handleWatchedClose = () => setWatchedShow(false);
 
 
 
 
-  const addToWatchList = () => { setWatchShow(false); }; // change this to add movie id to database
-  const addToSeenList = (id, userRating) => { setSeenShow(false); };  // change this to add movie id and rating to database
+  const addToToWatchList = () => { setToWatchShow(false); }; // change this to add movie id to database
+  const addToWatchedList = (id, userRating) => { setWatchedShow(false); };  // change this to add movie id and rating to database
 
 
   useEffect(() => {
@@ -106,25 +106,25 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <p>{overview}</p>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleSeenShow}>Add to Watched List</Button>
-              <Button variant="secondary" onClick={handleWatchShow}>Add to To-Watch List</Button>
+              <Button variant="secondary" onClick={handleWatchedShow}>Add to Watched List</Button>
+              <Button variant="secondary" onClick={handleToWatchShow}>Add to To-Watch List</Button>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
 
 
             </Modal.Footer>
           </Modal>
-          <Modal show={watch_show} onHide={handleWatchClose}>
+          <Modal show={towatch_show} onHide={handleToWatchClose}>
             <Modal.Header closeButton>
               <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h3>Add "{title}" to Watch List?</h3>
+              <h3>Add "{title}" to To-Watch List?</h3>
               <br></br>
               <br></br>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToWatchList}>Add to To-Watch List</Button>
-              <Button variant="secondary" onClick={handleWatchClose}>Cancel</Button>
+              <Button variant="secondary" onClick={addToToWatchList}>Add to To-Watch List</Button>
+              <Button variant="secondary" onClick={handleToWatchClose}>Cancel</Button>
 
             </Modal.Footer>
           </Modal>
@@ -132,7 +132,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
-          <Modal show={seen_show} onHide={handleSeenClose}>
+          <Modal show={watched_show} onHide={handleWatchedClose}>
             <Modal.Header closeButton>
               <Modal.Title></Modal.Title>
             </Modal.Header>
@@ -145,8 +145,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={() => addToSeenList({ id }, { userRating })}>Add to Watched List </Button>
-              <Button variant="secondary" onClick={handleSeenClose}>Cancel</Button>
+              <Button variant="secondary" onClick={() => addToWatchedList({ id }, { userRating })}>Add to Watched List </Button>
+              <Button variant="secondary" onClick={handleWatchedClose}>Cancel</Button>
 
             </Modal.Footer>
           </Modal>
