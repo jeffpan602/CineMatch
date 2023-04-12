@@ -20,23 +20,23 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
   const [userRating, setUserRating] = useState("5");
- 
+
 
 
 
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  const handleWatchShow = () => { setWatchShow(true); setShow(false);};
+  const handleWatchShow = () => { setWatchShow(true); setShow(false); };
   const handleWatchClose = () => setWatchShow(false);
-  const handleSeenShow = () => { setSeenShow(true); setShow(false);};
+  const handleSeenShow = () => { setSeenShow(true); setShow(false); };
   const handleSeenClose = () => setSeenShow(false);
 
 
 
 
-  const addToWatchList = () => {setWatchShow(false);}; // change this to add movie id to database
-  const addToSeenList = (id, userRating) => {setSeenShow(false);};  // change this to add movie id and rating to database
+  const addToWatchList = () => { setWatchShow(false); }; // change this to add movie id to database
+  const addToSeenList = (id, userRating) => { setSeenShow(false); };  // change this to add movie id and rating to database
 
 
   useEffect(() => {
@@ -49,8 +49,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
         // Get directors
         const directors = credits.crew
-            .filter((person) => person.job === "Director")
-            .map((person) => person.name);
+          .filter((person) => person.job === "Director")
+          .map((person) => person.name);
         setDirector(directors);
 
 
@@ -88,10 +88,10 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <br></br>
               {director.length > 0 &&
                 <div>
-                    <strong>Director(s):</strong>
-                    <ul>
-                        {director.map((person) => <li key={person}>{person}</li>)}
-                    </ul>
+                  <strong>Director(s):</strong>
+                  <ul>
+                    {director.map((person) => <li key={person}>{person}</li>)}
+                  </ul>
                 </div>
               }
               {cast.length > 0 &&
@@ -106,8 +106,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <p>{overview}</p>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={handleSeenShow}>Add to Seen List</Button>
-              <Button variant="secondary" onClick={handleWatchShow}>Add to Watch Later</Button>
+              <Button variant="secondary" onClick={handleSeenShow}>Add to Watched List</Button>
+              <Button variant="secondary" onClick={handleWatchShow}>Add to To-Watch List</Button>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
 
 
@@ -123,9 +123,9 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <br></br>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToWatchList}>Add to Watch Later</Button>
+              <Button variant="secondary" onClick={addToWatchList}>Add to To-Watch List</Button>
               <Button variant="secondary" onClick={handleWatchClose}>Cancel</Button>
-             
+
             </Modal.Footer>
           </Modal>
 
@@ -137,17 +137,17 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h3>Add "{title}" to Seen List?</h3>
+              <h3>Add "{title}" to Watched List?</h3>
               <br></br>
               <br></br>
               <h6>My Rating: {userRating}</h6>
-              <input type="range" min="0" max="10" value={userRating} step="1" onChange={(event) => setUserRating(event.target.value)}/>
-             
+              <input type="range" min="0" max="10" value={userRating} step="1" onChange={(event) => setUserRating(event.target.value)} />
+
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={() => addToSeenList({id}, {userRating})}>Add to Seen List</Button>
+              <Button variant="secondary" onClick={() => addToSeenList({ id }, { userRating })}>Add to Watched List </Button>
               <Button variant="secondary" onClick={handleSeenClose}>Cancel</Button>
-             
+
             </Modal.Footer>
           </Modal>
 
