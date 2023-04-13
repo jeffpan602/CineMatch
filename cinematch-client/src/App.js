@@ -3,6 +3,7 @@ import './App.css';
 import CineMatch from './CineMatch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import axios from "axios";
 
 const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
 const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&query";
