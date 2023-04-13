@@ -36,10 +36,25 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
+  // function to add the movie id to the to-watch list table 
+  const addToToWatchList = ({ id }) => {
+    setToWatchShow(false);
 
-  const addToToWatchList = () => { setToWatchShow(false); }; // change this to add movie id to database
+    const movieData = {
+      movie_id: id,
+      completed: false,
+    }
 
-  // change this to add movie id and rating to database
+    axios.post(`http://127.0.0.1:8000/api/to_watch/`, movieData).then(response => {
+      console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error);
+        console.log(movieData)
+      });
+  };
+
+  // function to add the movie info to the watched list table 
   const addToWatchedList = ({ id }, userRating) => {
     setWatchedShow(false);
 
@@ -145,7 +160,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <br></br>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToToWatchList}>Add to To-Watch List</Button>
+              <Button variant="secondary" onClick={() => addToToWatchList({ id })}>Add to To-Watch List</Button>
               <Button variant="secondary" onClick={handleToWatchClose}>Cancel</Button>
 
             </Modal.Footer>
