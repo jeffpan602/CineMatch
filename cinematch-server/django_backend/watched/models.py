@@ -14,5 +14,5 @@ class watched(models.Model):
     )
     review = models.TextField()
 
-    def _str_(self):
-        return "Movie ID: " + self.movie_id
+    def __str__(self):
+        return f"Movie ID: {self.movie_id}"
