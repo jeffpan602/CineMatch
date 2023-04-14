@@ -1,5 +1,7 @@
 import { Modal, show, Button } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
+
 
 
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
@@ -19,7 +21,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
-  const [userRating, setUserRating] = useState("5");
+  const [userRating, setUserRating] = useState(5);
 
 
 
@@ -34,9 +36,44 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
+  // function to add the movie id to the to-watch list table 
+  const addToToWatchList = ({ id }) => {
+    setToWatchShow(false);
 
-  const addToToWatchList = () => { setToWatchShow(false); }; // change this to add movie id to database
-  const addToWatchedList = (id, userRating) => { setWatchedShow(false); };  // change this to add movie id and rating to database
+    const movieData = {
+      movie_id: id,
+      completed: false,
+    }
+
+    axios.post(`http://127.0.0.1:8000/api/to_watch/`, movieData).then(response => {
+      console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error);
+        console.log(movieData)
+      });
+  };
+
+  // function to add the movie info to the watched list table 
+  const addToWatchedList = ({ id }, userRating) => {
+    setWatchedShow(false);
+
+    const movieData = {
+      movie_id: id,
+      rating: userRating,
+      review: "movie :)"
+    };
+
+    axios.post(`http://127.0.0.1:8000/api/watched/`, movieData)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+        console.log(userRating.toString())
+      });
+  };
+
 
 
   useEffect(() => {
@@ -123,7 +160,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <br></br>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={addToToWatchList}>Add to To-Watch List</Button>
+              <Button variant="secondary" onClick={() => addToToWatchList({ id })}>Add to To-Watch List</Button>
               <Button variant="secondary" onClick={handleToWatchClose}>Cancel</Button>
 
             </Modal.Footer>
@@ -145,7 +182,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={() => addToWatchedList({ id }, { userRating })}>Add to Watched List </Button>
+              <Button variant="secondary" onClick={() => addToWatchedList({ id }, userRating)}>Add to Watched List</Button>
               <Button variant="secondary" onClick={handleWatchedClose}>Cancel</Button>
 
             </Modal.Footer>
