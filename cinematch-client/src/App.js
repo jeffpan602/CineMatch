@@ -36,7 +36,8 @@ function App() {
           <div className="container">
             <div className="grid">
               {movies.map((movieReq) =>
-                <CineMatch key={movieReq.id} {...movieReq} />)}
+                <CineMatch key={movieReq.id} {...movieReq} />
+                )}
             </div>
           </div>
         ) : (

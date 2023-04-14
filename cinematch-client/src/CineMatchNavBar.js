@@ -59,7 +59,7 @@ export default function CineMatchNavBar(props) {
               aria-label="search"
               name="query"
               value={query} onChange={changeHandler}></FormControl>
-            <Button variant="secondary" onClick={searchMovie()}>Search</Button>
+            <Button variant="secondary" onClick={searchMovie}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

@@ -1,0 +1,24 @@
+.modal-header {
+    background-color: #457b9d;
+    color: white;
+    border-color: #161616;
+}
+
+.modal-body {
+    background-color: #f1faee;
+    color: black;
+    border-color: #f1faee;
+    padding-bottom: 0%;
+}
+
+.modal-footer {
+    background-color: #f1faee;
+    border-color: #f1faee;
+}
+
+.titleSpan {
+    display: flex;
+    justify-content: center;
+    background-color: #457b9d;
+    color: white;
+}

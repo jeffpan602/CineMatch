@@ -1,3 +1,4 @@
+import './styles.css'
 import React, { useState, useEffect } from 'react';
 import {
   Table,
@@ -16,13 +17,11 @@ function UserPage() {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/watched/')
     .then(response => {
-      console.log(response.data);
       setWatched(response.data);
     })
     .catch(err => console.log(err));
     axios.get('http://127.0.0.1:8000/api/to_watch/')
     .then(response => {
-      console.log(response.data);
       setToWatch(response.data);
     })
     .catch(err => console.log(err));
@@ -33,18 +32,18 @@ function UserPage() {
       
       <CineMatchNavBar setMovies={setMovies}/>
       
-      <span style={{ backgroundColor: "silver", display: "flex", justifyContent: "center"}}>
+      <span className="titleSpan">
         <h1>User Page</h1>
         </span>
 
-      <Row  style={{marginTop: "1.2em"}}>
+      <Row  style={{ marginTop: "1.2em", padding: "0em 0.9em" }}>
         <Col md={6}>
           <span style={{ display: "flex", justifyContent: "center" }}><h4>To-Watch List</h4></span>
           <br/>
 
           {/* Displays users to-watch list stored on database */}
           {(toWatch.length === 0) ? <h3 style={{ textAlign: "center" }}>No Movies in To-Watch List</h3> :
-            <Table size="sm">
+            <Table size="sm" striped >
               <thead>
                 <tr>
                   <th>Movie</th>
@@ -55,7 +54,7 @@ function UserPage() {
                 {toWatch.map((element) =>
                   <tr key={element.movie_id}>
                     <td>{element.movie_id}</td>
-                    <td style={{textAlign: 'center'}}>{(element.completed) ? "YES" : "NO"}</td>
+                    <td style={{ textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
                   </tr>
                 )}
               </tbody>
@@ -68,7 +67,7 @@ function UserPage() {
 
           {/* Displays users to-watch list stored on database */}
           {(watched.length === 0) ? <h3 style={{ textAlign: "center" }}>No Movies in Watched List</h3> :
-            <Table size="sm">
+            <Table size="sm" striped>
               <thead>
                 <tr>
                   <th>Movie</th>
