@@ -13,7 +13,7 @@ function UserPage() {
   const [toWatch, setToWatch] = useState([]);
   const [watched, setWatched] = useState([])
 
-  const handleDelete = (movieId) => {
+  const handleWatchedDelete = (movieId) => {
     axios.delete(`http://127.0.0.1:8000/api/watched/${movieId}/`)
       .then(response => {
         setWatched(watched.filter(movie => movie.movie_id !== movieId));
@@ -21,6 +21,13 @@ function UserPage() {
       .catch(err => console.log(err));
   };
 
+  const handleToWatchDelete = (movieId) => {
+    axios.delete(`http://127.0.0.1:8000/api/to_watch/${movieId}/`)
+      .then(response => {
+        setToWatch(toWatch.filter(movie => movie.movie_id !== movieId));
+      })
+      .catch(err => console.log(err));
+  };
 
   // Retrieves watched and to-watch lists from databse
   useEffect(() => {
@@ -64,6 +71,9 @@ function UserPage() {
                   <tr key={element.movie_id}>
                     <td>{element.movie_id}</td>
                     <td style={{ textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
+                    <td>
+                      <button onClick={() => handleToWatchDelete(element.movie_id)}>Delete</button>
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -91,7 +101,7 @@ function UserPage() {
                     <td style={{ textAlign: 'center' }}>{element.rating}/10</td>
                     <td>{element.review}</td>
                     <td>
-                      <button onClick={() => handleDelete(element.movie_id)}>Delete</button>
+                      <button onClick={() => handleWatchedDelete(element.movie_id)}>Delete</button>
                     </td>
                   </tr>
                 )}
