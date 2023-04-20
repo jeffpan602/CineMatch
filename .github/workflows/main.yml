@@ -22,5 +22,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd cinematch-client && npm ci
-      - run: cd cinematch-client && npm run build --if-present
+      - run: cd cinematch-client && npm run build --if-present --no-warnings
       - run: cd cinematch-client && npm test
