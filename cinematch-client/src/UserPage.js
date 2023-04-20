@@ -13,33 +13,42 @@ function UserPage() {
   const [toWatch, setToWatch] = useState([]);
   const [watched, setWatched] = useState([])
 
+  const handleDelete = (movieId) => {
+    axios.delete(`http://127.0.0.1:8000/api/watched/${movieId}/`)
+      .then(response => {
+        setWatched(watched.filter(movie => movie.movie_id !== movieId));
+      })
+      .catch(err => console.log(err));
+  };
+
+
   // Retrieves watched and to-watch lists from databse
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/watched/')
-    .then(response => {
-      setWatched(response.data);
-    })
-    .catch(err => console.log(err));
+      .then(response => {
+        setWatched(response.data);
+      })
+      .catch(err => console.log(err));
     axios.get('http://127.0.0.1:8000/api/to_watch/')
-    .then(response => {
-      setToWatch(response.data);
-    })
-    .catch(err => console.log(err));
+      .then(response => {
+        setToWatch(response.data);
+      })
+      .catch(err => console.log(err));
   }, [])
 
   return (
     <>
-      
-      <CineMatchNavBar setMovies={setMovies}/>
-      
+
+      <CineMatchNavBar setMovies={setMovies} />
+
       <span className="titleSpan">
         <h1>User Page</h1>
-        </span>
+      </span>
 
-      <Row  style={{ marginTop: "1.2em", padding: "0em 0.9em" }}>
+      <Row style={{ marginTop: "1.2em", padding: "0em 0.9em" }}>
         <Col md={6}>
           <span style={{ display: "flex", justifyContent: "center" }}><h4>To-Watch List</h4></span>
-          <br/>
+          <br />
 
           {/* Displays users to-watch list stored on database */}
           {(toWatch.length === 0) ? <h3 style={{ textAlign: "center" }}>No Movies in To-Watch List</h3> :
@@ -47,7 +56,7 @@ function UserPage() {
               <thead>
                 <tr>
                   <th>Movie</th>
-                  <th style={{textAlign: 'center'}}>Completed</th>
+                  <th style={{ textAlign: 'center' }}>Completed</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,7 +80,7 @@ function UserPage() {
               <thead>
                 <tr>
                   <th>Movie</th>
-                  <th style={{textAlign: 'center'}}>Rating</th>
+                  <th style={{ textAlign: 'center' }}>Rating</th>
                   <th>Review</th>
                 </tr>
               </thead>
@@ -79,8 +88,11 @@ function UserPage() {
                 {watched.map((element) =>
                   <tr key={element.movie_id}>
                     <td>{element.movie_id}</td>
-                    <td style={{textAlign: 'center'}}>{element.rating}/10</td>
+                    <td style={{ textAlign: 'center' }}>{element.rating}/10</td>
                     <td>{element.review}</td>
+                    <td>
+                      <button onClick={() => handleDelete(element.movie_id)}>Delete</button>
+                    </td>
                   </tr>
                 )}
               </tbody>
