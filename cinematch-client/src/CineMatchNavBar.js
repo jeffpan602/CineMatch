@@ -42,6 +42,9 @@ export default function CineMatchNavBar(props) {
         <Navbar.Brand>
           <Link to="/user" style={{ textDecoration: 'none', color: 'white' }}>User Page</Link>
         </Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/stats" style={{ textDecoration: 'none', color: 'white' }}>Stats</Link>
+        </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
 
