@@ -69,7 +69,7 @@ function UserPage() {
               <tbody>
                 {toWatch.map((element) =>
                   <tr key={element.movie_id}>
-                    <td>{element.movie_id}</td>
+                    <td>{element.movie_title}</td>
                     <td style={{ textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
                     <td>
                       <button onClick={() => handleToWatchDelete(element.movie_id)}>Delete</button>

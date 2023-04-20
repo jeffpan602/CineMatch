@@ -106,6 +106,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
     const movieData = {
       movie_id: id,
+      movie_title: title,
       completed: false,
     }
 
