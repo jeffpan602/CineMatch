@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class watched(models.Model):
     movie_id = models.IntegerField(primary_key=True)
+    movie_title = models.CharField(max_length=200, default='')
     rating = models.IntegerField(
         validators=[
             MinValueValidator(1),

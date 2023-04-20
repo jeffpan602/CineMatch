@@ -97,7 +97,7 @@ function UserPage() {
               <tbody>
                 {watched.map((element) =>
                   <tr key={element.movie_id}>
-                    <td>{element.movie_id}</td>
+                    <td>{element.movie_title}</td>
                     <td style={{ textAlign: 'center' }}>{element.rating}/10</td>
                     <td>{element.review}</td>
                     <td>

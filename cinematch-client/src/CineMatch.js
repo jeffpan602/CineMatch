@@ -149,6 +149,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
     const movieData = {
       movie_id: id,
+      movie_title: title,
       rating: userRating,
       review: userReview
     };
@@ -159,7 +160,6 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       })
       .catch(error => {
         console.log(error);
-        console.log(userRating.toString())
       });
   };
 
@@ -308,12 +308,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
                     name={userReview}
                     value={userReview} onChange={(e) => setUserReview(e.target.value)} autoComplete="off"
                     style={{ backgroundColor: "#f1faee" }}
-                    wrap="soft"
-                    required
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter a review.
-                  </Form.Control.Feedback>
                 </FormGroup>
               </Form>
             </ModalBody>

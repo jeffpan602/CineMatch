@@ -3,7 +3,7 @@ from .models import watched
 
 
 class watchedAdmin(admin.ModelAdmin):
-    list_display = ('movie_id', 'rating', 'review')
+    list_display = ('movie_id', 'movie_title', 'rating', 'review')
 
 # Register your models here.
 
