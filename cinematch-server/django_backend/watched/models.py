@@ -12,7 +12,7 @@ class watched(models.Model):
             MaxValueValidator(10)
         ]
     )
-    review = models.TextField()
+    review = models.TextField(blank=True)
 
     def _str_(self):
         return "Movie ID: " + self.movie_id

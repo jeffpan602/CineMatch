@@ -1,5 +1,6 @@
 import './styles.css'
-import { Modal, show, Button, Form, FormControl,
+import {
+  Modal, show, Button, Form, FormControl,
   ModalHeader, ModalTitle, ModalBody, Row, Image,
   Col, ModalFooter, FormGroup, FormLabel
 } from 'react-bootstrap';
@@ -48,7 +49,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
 
-  const handleShow = (id) => {setShow(true); movieInToWatchList(id); movieInWatchedList(id)}
+  const handleShow = (id) => { setShow(true); movieInToWatchList(id); movieInWatchedList(id) }
   const handleClose = () => setShow(false);
   const handleToWatchShow = () => { setToWatchShow(true); setShow(false); };
   const handleToWatchClose = () => setToWatchShow(false);
@@ -62,37 +63,37 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
   // function to check if movie is in the to-watch list
-  const movieInToWatchList = ({id}) => {
+  const movieInToWatchList = ({ id }) => {
     axios.get(`http://127.0.0.1:8000/api/to_watch/`)
-    .then(response => {
-      const mov = response.data;
-      setInToWatch(false);
-      for (let i = 0; i < mov.length; i++) {
-        if(mov[i].movie_id == id){
-           setInToWatch(true);
+      .then(response => {
+        const mov = response.data;
+        setInToWatch(false);
+        for (let i = 0; i < mov.length; i++) {
+          if (mov[i].movie_id == id) {
+            setInToWatch(true);
+          }
         }
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
- 
+
   // function to check if movie is in the watched list
-  const movieInWatchedList = ({id}) => {
+  const movieInWatchedList = ({ id }) => {
     axios.get(`http://127.0.0.1:8000/api/watched/`)
-    .then(response => {
-      const mov = response.data;
-      setInWatched(false);
-      for (let i = 0; i < mov.length; i++) {
-        if(mov[i].movie_id == id){
-           setInWatched(true);
+      .then(response => {
+        const mov = response.data;
+        setInWatched(false);
+        for (let i = 0; i < mov.length; i++) {
+          if (mov[i].movie_id == id) {
+            setInWatched(true);
+          }
         }
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
 
@@ -124,12 +125,12 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
 
   // remove from the to-watch list
-  const removeFromToWatchList = ({id}) => {
+  const removeFromToWatchList = ({ id }) => {
     setToWatchShow(false);
     setShow(false);
 
 
-    axios.delete(`http://127.0.0.1:8000/api/to_watch/${id}/` )
+    axios.delete(`http://127.0.0.1:8000/api/to_watch/${id}/`)
       .then(response => {
         console.log(response.data);
       })
@@ -161,13 +162,13 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
         console.log(userRating.toString())
       });
   };
- 
+
   // remove from watched list
-  const removeFromWatchedList = ({id}) => {
+  const removeFromWatchedList = ({ id }) => {
     setToWatchShow(false);
     setShow(false);
 
-    axios.delete(`http://127.0.0.1:8000/api/watched/${id}/` )
+    axios.delete(`http://127.0.0.1:8000/api/watched/${id}/`)
       .then(response => {
         console.log(response.data);
       })
@@ -222,7 +223,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       <div className="card-body">
         <img className="card-img-top" src={API_IMG + poster_path} />
         <div className="card-body">
-          <button type="button" className="btn btn-dark" onClick={() => handleShow({id})}>View More</button>
+          <button type="button" className="btn btn-dark" onClick={() => handleShow({ id })}>View More</button>
           <Modal
             show={show}
             onHide={handleClose}
@@ -235,7 +236,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
             <ModalBody>
               <Row>
                 <Col md={3}>
-                  <Image src={API_IMG + poster_path} fluid/>
+                  <Image src={API_IMG + poster_path} fluid />
                 </Col>
                 <Col md={9}>
                   <p><strong>Release Date: {moment(release_date).format("MMMM Do, YYYY")}</strong></p>
@@ -258,12 +259,12 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               </Row>
             </ModalBody>
             <ModalFooter>
-              {in_watched?
-              <Button variant="dark" onClick={() => removeFromWatchedList({id})}>Remove from Watched List</Button> :
-              <Button variant="dark" onClick={handleWatchedShow}>Add to Watched List</Button> }
-              {in_towatch?
-              <Button variant="dark" onClick={() => removeFromToWatchList({id})}>Remove from To-Watch List</Button> :
-              <Button variant="dark" onClick={handleToWatchShow}>Add to To-Watch List</Button> }
+              {in_watched ?
+                <Button variant="dark" onClick={() => removeFromWatchedList({ id })}>Remove from Watched List</Button> :
+                <Button variant="dark" onClick={handleWatchedShow}>Add to Watched List</Button>}
+              {in_towatch ?
+                <Button variant="dark" onClick={() => removeFromToWatchList({ id })}>Remove from To-Watch List</Button> :
+                <Button variant="dark" onClick={handleToWatchShow}>Add to To-Watch List</Button>}
               <Button variant="danger" onClick={handleClose}>Close</Button>
             </ModalFooter>
           </Modal>
@@ -287,8 +288,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
             centered>
             <ModalBody>
               <h3>Add <strong>{title}</strong> to Watched list?</h3>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <Form>
                 <FormGroup>
                   <FormLabel><h6>My Rating: {userRating}</h6></FormLabel>
@@ -306,14 +307,19 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
                     type="textarea"
                     name={userReview}
                     value={userReview} onChange={(e) => setUserReview(e.target.value)} autoComplete="off"
-                    style={{ backgroundColor: "#f1faee"}}
+                    style={{ backgroundColor: "#f1faee" }}
+                    wrap="soft"
+                    required
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a review.
+                  </Form.Control.Feedback>
                 </FormGroup>
               </Form>
             </ModalBody>
             <Modal.Footer>
-               <Button variant="success" onClick={() => addToWatchedList({ id }, userRating, userReview)}>Add to Watched List</Button>
-               <Button variant="danger" onClick={handleWatchedClose}>Cancel</Button>
+              <Button variant="success" onClick={() => addToWatchedList({ id }, userRating, userReview)}>Add to Watched List</Button>
+              <Button variant="danger" onClick={handleWatchedClose}>Cancel</Button>
             </Modal.Footer>
           </Modal>
         </div>
