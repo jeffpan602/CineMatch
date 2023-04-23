@@ -24,7 +24,7 @@ genres_dict = {genre['id']: genre['name']
 genre_counts = {}
 
 for movie in watched:
-    # Retrieve runtime and genre info from TMDB API using movie_id
+    # Retrieve movie info
     response = requests.get(
         f'https://api.themoviedb.org/3/movie/{movie["movie_id"]}?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&language=en-US')
     movie_info = response.json()
@@ -36,6 +36,16 @@ for movie in watched:
         genre_id = genre['id']
         genre_name = genres_dict.get(genre_id)
         genre_counts[genre_name] = genre_counts.get(genre_name, 0) + 1
+
+    # Get languages and their counts
+    language_counts = {}
+    for movie in watched:
+        language = movie_info['original_language']
+        if language in language_counts:
+            language_counts[language] += 1
+        else:
+
+            language_counts[language] = 1
 
 # Get top 5 genres
 top_genres = sorted(genre_counts.items(), key=lambda x: x[1], reverse=True)[:5]
@@ -72,23 +82,39 @@ elements.append(
     Paragraph(f"Movie Genres Distrubution:", styles['Normal']))
 
 
-# Create a list of labels and sizes for the pie chart
+# Create a list of labels and sizes for the first pie chart
 labels = [genre[0] for genre in top_genres]
 sizes = [genre[1] for genre in top_genres]
 
-# Create the pie chart with percentages
-fig, ax = plt.subplots()
-ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-plt.savefig('top_genres_pie_chart.png')  # Save pie chart to file
+# Create the first pie chart with percentages
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+ax1.set_title('Top Genres')  # Add title to the first pie chart
+plt.savefig('top_genres_pie_chart.png')  # Save first pie chart to file
 
+# Add first pie chart to PDF
+pie_chart1 = Image('top_genres_pie_chart.png', width=4*inch, height=3*inch)
+elements.append(pie_chart1)
 
-# Add title
-plt.title("Top Genres")
+# Generate the second pie chart
+labelsLang = list(language_counts.keys())
+counts = list(language_counts.values())
+colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']
+fig2, ax2 = plt.subplots()  # Create a new figure and axis for the second pie chart
+ax2.pie(counts, labels=labelsLang, colors=colors,
+        autopct='%1.1f%%', startangle=140)
+ax2.axis('equal')
 
-# Add pie chart to PDF
-pie_chart = Image('top_genres_pie_chart.png', width=4*inch, height=3*inch)
-elements.append(pie_chart)
+plt.savefig('language_pie_chart.png')  # Save second pie chart to file
+
+elements.append(
+    Paragraph(f"Movie Language Distrubution:", styles['Normal']))
+
+# Add second pie chart to PDF
+pie_chart2 = Image('language_pie_chart.png', width=4*inch, height=3*inch)
+elements.append(pie_chart2)
+
 
 # Build PDF document
 doc.build(elements)
