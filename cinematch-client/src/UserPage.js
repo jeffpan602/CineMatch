@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import {
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from 'react-bootstrap';
 import CineMatchNavBar from './CineMatchNavBar';
 import axios from 'axios';
@@ -45,7 +46,6 @@ function UserPage() {
 
   return (
     <>
-
       <CineMatchNavBar setMovies={setMovies} />
 
       <span className="titleSpan">
@@ -58,12 +58,13 @@ function UserPage() {
           <br />
 
           {/* Displays users to-watch list stored on database */}
-          {(toWatch.length === 0) ? <h3 style={{ textAlign: "center" }}>No Movies in To-Watch List</h3> :
-            <Table size="sm" striped >
+          {(toWatch.length === 0) ? <h3 style={{ textAlign: "center" }} role="toWatchEmpty">No Movies in To-Watch List</h3> :
+            <Table size="sm" striped role='tableToWatch'>
               <thead>
                 <tr>
                   <th>Movie</th>
                   <th style={{ textAlign: 'center' }}>Completed</th>
+                  <th style={{ textAlign: 'center '}}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,8 +72,8 @@ function UserPage() {
                   <tr key={element.movie_id}>
                     <td>{element.movie_title}</td>
                     <td style={{ textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
-                    <td>
-                      <button onClick={() => handleToWatchDelete(element.movie_id)}>Delete</button>
+                    <td style={{ display: 'flex', justifyContent: 'center'}}>
+                      <Button variant='danger' onClick={() => handleToWatchDelete(element.movie_id)} role="toWatchDelete">Delete</Button>
                     </td>
                   </tr>
                 )}
@@ -85,13 +86,14 @@ function UserPage() {
           <br />
 
           {/* Displays users to-watch list stored on database */}
-          {(watched.length === 0) ? <h3 style={{ textAlign: "center" }}>No Movies in Watched List</h3> :
-            <Table size="sm" striped>
+          {(watched.length === 0) ? <h3 style={{ textAlign: "center" }} role="watchedEmpty">No Movies in Watched List</h3> :
+            <Table size="sm" striped role='tableWatched'>
               <thead>
                 <tr>
                   <th>Movie</th>
                   <th style={{ textAlign: 'center' }}>Rating</th>
                   <th>Review</th>
+                  <th style={{ textAlign: 'center' }}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,8 +102,8 @@ function UserPage() {
                     <td>{element.movie_title}</td>
                     <td style={{ textAlign: 'center' }}>{element.rating}/10</td>
                     <td>{element.review}</td>
-                    <td>
-                      <button onClick={() => handleWatchedDelete(element.movie_id)}>Delete</button>
+                    <td style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Button variant='danger' onClick={() => handleWatchedDelete(element.movie_id)} role="watchedDelete">Delete</Button>
                     </td>
                   </tr>
                 )}

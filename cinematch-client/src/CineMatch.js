@@ -1,28 +1,18 @@
 import './styles.css'
 import {
-  Modal, show, Button, Form, FormControl,
+  Modal, Button, Form, FormControl,
   ModalHeader, ModalTitle, ModalBody, Row, Image,
   Col, ModalFooter, FormGroup, FormLabel
 } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
-import moment from "moment"
-import FormRange from 'react-bootstrap/esm/FormRange';
-
-
-
+import axios from 'axios';
+import moment from 'moment';
 
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const API_BASE = "https://api.themoviedb.org/3";
 const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 
-
-
-
 const CineMatch = ({ title, poster_path, vote_average, release_date, overview, id }) => {
-
-
-
 
   const [show, setShow] = useState(false);
   const [towatch_show, setToWatchShow] = useState(false);
@@ -32,22 +22,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState([]);
 
-
-
-
-
-
-
-
   const [userRating, setUserRating] = useState(5);
   const [userReview, setUserReview] = useState('');
-
-
-
-
-
-
-
 
   const handleShow = (id) => { setShow(true); movieInToWatchList(id); movieInWatchedList(id) }
   const handleClose = () => setShow(false);
@@ -60,7 +36,6 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
     setUserReview('');
   };
   const handleWatchedClose = () => setWatchedShow(false);
-
 
   // function to check if movie is in the to-watch list
   const movieInToWatchList = ({ id }) => {
@@ -96,13 +71,9 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       });
   }
 
-
-
-
   // function to add the movie id to the to-watch list table
   const addToToWatchList = ({ id }) => {
     setToWatchShow(false);
-
 
     const movieData = {
       movie_id: id,
@@ -110,43 +81,35 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       completed: false,
     }
 
-
     axios.post(`http://127.0.0.1:8000/api/to_watch/`, movieData).then(response => {
-      console.log(response.data);
+      //movie added to DB
     })
       .catch(error => {
         console.log(error);
         console.log(movieData)
       });
 
-
     setUserRating(5);
     setUserReview('');
   };
-
 
   // remove from the to-watch list
   const removeFromToWatchList = ({ id }) => {
     setToWatchShow(false);
     setShow(false);
 
-
     axios.delete(`http://127.0.0.1:8000/api/to_watch/${id}/`)
       .then(response => {
-        console.log(response.data);
+        //movie deleted from DB
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-
-
-
   // function to add the movie info to the watched list table
   const addToWatchedList = ({ id }, userRating, userReview) => {
     setWatchedShow(false);
-
 
     const movieData = {
       movie_id: id,
@@ -154,10 +117,9 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       rating: userRating,
       review: userReview
     };
-    console.log(movieData);
     axios.post(`http://127.0.0.1:8000/api/watched/`, movieData)
       .then(response => {
-        console.log(response.data);
+        //movie added to DB
       })
       .catch(error => {
         console.log(error);
@@ -171,17 +133,12 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
 
     axios.delete(`http://127.0.0.1:8000/api/watched/${id}/`)
       .then(response => {
-        console.log(response.data);
+        //movie deleted from DB
       })
       .catch(error => {
         console.log(error);
       });
   };
-
-
-
-
-
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -190,17 +147,11 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
         const data = await res.json();
         const credits = data.credits;
 
-
-
-
         // Get directors
         const directors = credits.crew
           .filter((person) => person.job === "Director")
           .map((person) => person.name);
         setDirector(directors);
-
-
-
 
         // Get top 5 cast members
         const cast = credits.cast.slice(0, 5).map((person) => person.name);
@@ -216,14 +167,11 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
     getMovieDetails();
   }, [id]);
 
-
-
-
   return (
-    <div className="card text-center bg-secondary mb-3">
+    <div className="card text-center bg-secondary mb-3" role={'movie-card'}>
       <div className="card-body">
         <img className="card-img-top" src={API_IMG + poster_path} />
-        <div className="card-body">
+        <div className="card-body" role={id}>
           <button type="button" className="btn btn-dark" onClick={() => handleShow({ id })}>View More</button>
           <Modal
             show={show}
@@ -236,10 +184,10 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
             </ModalHeader>
             <ModalBody>
               <Row>
-                <Col md={3}>
+                <Col md={4}>
                   <Image src={API_IMG + poster_path} fluid />
                 </Col>
-                <Col md={9}>
+                <Col md={8}>
                   <p><strong>Release Date: {moment(release_date).format("MMMM Do, YYYY")}</strong></p>
                   <p>{overview}</p>
                   <Row>
@@ -294,7 +242,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <Form>
                 <FormGroup>
                   <FormLabel><h6>My Rating: {userRating}</h6></FormLabel>
-                  <FormRange
+                  <Form.Range
                     min={1}
                     max={10}
                     value={userRating}
@@ -323,8 +271,5 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
     </div>
   )
 }
-
-
-
 
 export default CineMatch;

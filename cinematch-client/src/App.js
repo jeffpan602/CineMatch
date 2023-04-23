@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './App.css';
 import CineMatch from './CineMatch';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,7 +9,6 @@ const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f6
 function App() {
 
   const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Retrieves trending movies to display on homepage
@@ -21,22 +19,17 @@ function App() {
       })
       .catch((e) => console.log(e));
 
-      
-    // Redirect to /home when accessing the default route (/)
-    if (window.location.pathname === '/') {
-      navigate('/home');
-    }
-  }, [navigate])
+  }, [])
 
   return (
     <>
       <CineMatchNavBar setMovies={setMovies}/>
-      <div>
+      <div role="movie-grid">
         {movies.length > 0 ? (
           <div className="container">
             <div className="grid">
               {movies.map((movieReq) =>
-                <CineMatch key={movieReq.id} {...movieReq} />
+                <CineMatch key={movieReq.id} {...movieReq} role={movieReq.id}/>
                 )}
             </div>
           </div>
