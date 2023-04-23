@@ -1,3 +1,4 @@
+import os
 import matplotlib.pyplot as plt
 from django.db.models import Count
 from reportlab.lib.pagesizes import letter
@@ -44,7 +45,6 @@ for movie in watched:
         if language in language_counts:
             language_counts[language] += 1
         else:
-
             language_counts[language] = 1
 
 # Get top 5 genres
@@ -90,7 +90,6 @@ sizes = [genre[1] for genre in top_genres]
 fig1, ax1 = plt.subplots()
 ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-ax1.set_title('Top Genres')  # Add title to the first pie chart
 plt.savefig('top_genres_pie_chart.png')  # Save first pie chart to file
 
 # Add first pie chart to PDF
@@ -118,3 +117,14 @@ elements.append(pie_chart2)
 
 # Build PDF document
 doc.build(elements)
+
+
+# Get the root directory of the project
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Define the relative path to the PDF file
+pdf_file = os.path.join(BASE_DIR, 'cinematch-server',
+                        'django_backend', 'movie_stats.pdf')
+
+# Define PDF document layout
+doc = SimpleDocTemplate(pdf_file, pagesize=letter)
