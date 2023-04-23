@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from django.db.models import Count
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -66,6 +67,22 @@ elements.append(
 # Add top genres
 elements.append(
     Paragraph(f"Top Genres: {top_genres_str}", styles['Normal']))
+
+
+# Create a list of labels and sizes for the pie chart
+labels = [genre[0] for genre in top_genres]
+sizes = [genre[1] for genre in top_genres]
+
+# Create the pie chart with percentages
+fig, ax = plt.subplots()
+ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+# Add title
+plt.title("Top Genres")
+
+# Display the chart
+plt.show()
 
 
 # Build PDF document
