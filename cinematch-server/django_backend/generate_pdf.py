@@ -5,9 +5,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer, Image
 import requests
-
 
 # Fetch data from backend API
 response = requests.get('http://127.0.0.1:8000/api/watched/')
@@ -64,9 +63,13 @@ elements.append(whitespace)
 elements.append(
     Paragraph(f"Total Number of Movies Watched: {total_movies_watched}", styles['Normal']))
 
+# Add some whitespace
+whitespace = Spacer(0, 10)  # 10 points of space
+elements.append(whitespace)
+
 # Add top genres
 elements.append(
-    Paragraph(f"Top Genres: {top_genres_str}", styles['Normal']))
+    Paragraph(f"Movie Genres Distrubution:", styles['Normal']))
 
 
 # Create a list of labels and sizes for the pie chart
@@ -77,13 +80,15 @@ sizes = [genre[1] for genre in top_genres]
 fig, ax = plt.subplots()
 ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
 ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.savefig('top_genres_pie_chart.png')  # Save pie chart to file
+
 
 # Add title
 plt.title("Top Genres")
 
-# Display the chart
-plt.show()
-
+# Add pie chart to PDF
+pie_chart = Image('top_genres_pie_chart.png', width=4*inch, height=3*inch)
+elements.append(pie_chart)
 
 # Build PDF document
 doc.build(elements)
