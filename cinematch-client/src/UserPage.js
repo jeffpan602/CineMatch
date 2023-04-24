@@ -1,4 +1,5 @@
-import './styles.css'
+import './styles.css';
+import './UserPage.css';
 import React, { useState, useEffect } from 'react';
 import {
   Table,
@@ -44,10 +45,8 @@ function UserPage() {
   }, [])
 
   return (
-    <>
-
+    <div className="userpage">
       <CineMatchNavBar setMovies={setMovies} />
-
       <span className="titleSpan">
         <h1>User Page</h1>
       </span>
@@ -69,8 +68,8 @@ function UserPage() {
               <tbody>
                 {toWatch.map((element) =>
                   <tr key={element.movie_id}>
-                    <td>{element.movie_title}</td>
-                    <td style={{ textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
+                    <td style={{ color: 'white'}}>{element.movie_title}</td>
+                    <td style={{ color: 'white', textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
                     <td>
                       <button onClick={() => handleToWatchDelete(element.movie_id)}>Delete</button>
                     </td>
@@ -97,9 +96,9 @@ function UserPage() {
               <tbody>
                 {watched.map((element) =>
                   <tr key={element.movie_id}>
-                    <td>{element.movie_title}</td>
-                    <td style={{ textAlign: 'center' }}>{element.rating}/10</td>
-                    <td>{element.review}</td>
+                    <td style={{ color: 'white' }}>{element.movie_title}</td>
+                    <td style={{ color: 'white', textAlign: 'center' }}>{element.rating}/10</td>
+                    <td style={{ color: 'white' }}>{element.review}</td>
                     <td>
                       <button onClick={() => handleWatchedDelete(element.movie_id)}>Delete</button>
                     </td>
@@ -110,7 +109,7 @@ function UserPage() {
           }
         </Col>
       </Row>
-    </>
+    </div>
   );
 }
 

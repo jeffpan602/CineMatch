@@ -96,20 +96,15 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       });
   }
 
-
-
-
   // function to add the movie id to the to-watch list table
   const addToToWatchList = ({ id }) => {
     setToWatchShow(false);
-
 
     const movieData = {
       movie_id: id,
       movie_title: title,
       completed: false,
     }
-
 
     axios.post(`http://127.0.0.1:8000/api/to_watch/`, movieData).then(response => {
       console.log(response.data);
@@ -147,7 +142,6 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
   const addToWatchedList = ({ id }, userRating, userReview) => {
     setWatchedShow(false);
 
-
     const movieData = {
       movie_id: id,
       movie_title: title,
@@ -178,11 +172,6 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       });
   };
 
-
-
-
-
-
   useEffect(() => {
     const getMovieDetails = async () => {
       try {
@@ -190,17 +179,11 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
         const data = await res.json();
         const credits = data.credits;
 
-
-
-
         // Get directors
         const directors = credits.crew
           .filter((person) => person.job === "Director")
           .map((person) => person.name);
         setDirector(directors);
-
-
-
 
         // Get top 5 cast members
         const cast = credits.cast.slice(0, 5).map((person) => person.name);
@@ -209,15 +192,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
         console.log(e);
       }
     };
-
-
-
-
     getMovieDetails();
   }, [id]);
-
-
-
 
   return (
     <div className="card text-center bg-secondary mb-3">
@@ -237,10 +213,23 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
             <ModalBody>
               <Row>
                 <Col md={3}>
-                  <Image src={API_IMG + poster_path} fluid />
+                  <div className="poster">
+                    {() => console.log(poster_path)}
+                    {poster_path ? (
+                      <Image src={API_IMG + poster_path} fluid />
+                    ) : (
+                      () => console.log(poster_path),
+                      <div className="blank-poster"/>
+                    )}
+                  </div>
+
                 </Col>
                 <Col md={9}>
-                  <p><strong>Release Date: {moment(release_date).format("MMMM Do, YYYY")}</strong></p>
+                  {release_date ? ( 
+                    <p><strong>Release Date: {moment(release_date).format("MMMM Do, YYYY")}</strong></p>
+                  ) : (
+                    <p><strong>Unknown Release Date</strong></p>
+                  )}
                   <p>{overview}</p>
                   <Row>
                     <Col md={6}>

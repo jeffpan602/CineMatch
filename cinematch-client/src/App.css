@@ -7,6 +7,12 @@ body{
   text-decoration: none;
   list-style-type: none;
   outline: none;
+  height: 100%;
+  background-color: rgb(42, 45, 49);
+}
+
+.app{
+  background-color:rgb(42, 45, 49);
 }
 
 .container{
@@ -17,11 +23,36 @@ body{
 .grid{
   display: grid;
   margin-left: .5px;
-  grid-template-columns: repeat(4,1fr);
-  grid-gap: 0.2em;
+  grid-template-columns: repeat(5,1fr);
+  grid-gap: 1em;
   justify-content: center;
 }
 
-h2{
-  background-color: antiquewhite;
+@media (max-width: 1325px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.loading h2{
+  background-color: transparent;
+  opacity: 0;
+  color: white;
+  animation: appear 0s 2s forwards;
+}
+
+@keyframes appear{
+  to {opacity : 1;}
 }

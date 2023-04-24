@@ -1,24 +1,85 @@
 .modal-header {
-    background-color: #457b9d;
-    color: white;
-    border-color: #161616;
+  background-color: rgb(15, 15, 15);
+  color: white;
 }
 
 .modal-body {
-    background-color: #f1faee;
-    color: black;
-    border-color: #f1faee;
-    padding-bottom: 0%;
+  background-color: rgb(43, 43, 43);
+  color: white;
 }
 
 .modal-footer {
-    background-color: #f1faee;
-    border-color: #f1faee;
+  background-color: rgb(60, 60, 60);
 }
 
 .titleSpan {
     display: flex;
     justify-content: center;
-    background-color: #457b9d;
     color: white;
 }
+
+.movie-card{
+    margin: 10px;
+    border-radius: 3px;
+    /*background-color: rgb(42, 45, 49);*/
+    background-color: transparent;
+  }
+
+  .movie-card-body{
+    position: relative;
+    margin: auto;
+  }
+  
+  .movie-card:hover {
+    cursor: pointer;
+    transform: scale(1.025);
+    transition: 0.125s ease;
+    background-color: rgb(15, 15, 15, 0.75);
+  }
+  
+  .movie-card img {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .movie-card Image {
+    width: 100%;
+  }
+  
+  .movie-card-body .poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+  }
+  
+  .movie-card-body .empty-poster {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(97, 97, 97);
+  }
+
+  .movie-card-body .poster .empty-poster p {
+    font-size: large;
+    padding-top: 50%;
+    color: rgb(222, 222, 222);
+    text-align: center;
+  }
+
+  .movie-card-info {
+    text-align: center;
+    color: rgb(226, 248, 255);
+  }
+  
+  .movie-card-info h2 {
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+  }
+
+  .movie-card-info p {
+    padding-bottom: 8px;
+    font-size: 14px;
+  }

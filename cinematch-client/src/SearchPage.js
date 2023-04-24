@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './App.css';
-import CineMatch from './CineMatch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CineMatchNavBar from './CineMatchNavBar'
 import { MovieCard } from './components/MovieCard';
 
-const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
-
-function App() {
+function SearchPage() {
 
   const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
+  const { query } = useParams();
 
   useEffect(() => {
-    // Retrieves trending movies to display on homepage
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then(data => {
-        setMovies(data.results);
-      })
-      .catch((e) => console.log(e));
-
-      
-    // Redirect to /home when accessing the default route (/)
-    if (window.location.pathname === '/') {
-      navigate('/home');
+    console.log(`Searching for "${query}"`);
+    try {
+      const url = `https://api.themoviedb.org/3/search/movie?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&query=${query}`;
+      fetch(url)
+      .then(res => res.json())
+      .then(data => 
+        setMovies(data.results)
+        )     
     }
-  }, [navigate])
+    catch (e) {
+      console.log(e);
+    }
+  }, [])
 
   return (
     <>
@@ -37,7 +33,6 @@ function App() {
           <div className="container">
             <div className="grid">
               {movies.map((movieReq) =>
-                //<CineMatch key={movieReq.id} {...movieReq} />
                 <MovieCard key={movieReq.id} {...movieReq}/>
                 )}
             </div>
@@ -53,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default SearchPage;
