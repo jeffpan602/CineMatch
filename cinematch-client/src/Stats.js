@@ -15,16 +15,18 @@ function Stats() {
   return (
     <>
       <CineMatchNavBar />
-      <span className="titleSpan">
-        <h1>Stats</h1>
-      </span>
-      <button onClick={generatePDF}>Generate PDF</button>
-      <p>{message}</p>
+      <div className='stats-page'>
+        <span className="titleSpan">
+          <h1>Stats</h1>
+        </span>
+        <div className='stats-button'>
+          <button onClick={generatePDF}>Generate PDF</button>
+        </div>
+        
+        <p>{message}</p>
+      </div>
     </>
   );
 }
 
 export default Stats;
-
-
-

@@ -68,8 +68,8 @@ function UserPage() {
               <tbody>
                 {toWatch.map((element) =>
                   <tr key={element.movie_id}>
-                    <td style={{ color: 'white'}}>{element.movie_title}</td>
-                    <td style={{ color: 'white', textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
+                    <td style={{ color: '#d9dbe0'}}>{element.movie_title}</td>
+                    <td style={{ color: '#d9dbe0', textAlign: 'center' }}>{(element.completed) ? "YES" : "NO"}</td>
                     <td>
                       <button onClick={() => handleToWatchDelete(element.movie_id)}>Delete</button>
                     </td>
@@ -96,9 +96,9 @@ function UserPage() {
               <tbody>
                 {watched.map((element) =>
                   <tr key={element.movie_id}>
-                    <td style={{ color: 'white' }}>{element.movie_title}</td>
-                    <td style={{ color: 'white', textAlign: 'center' }}>{element.rating}/10</td>
-                    <td style={{ color: 'white' }}>{element.review}</td>
+                    <td style={{ color: '#d9dbe0' }}>{element.movie_title}</td>
+                    <td style={{ color: '#d9dbe0', textAlign: 'center' }}>{element.rating}/10</td>
+                    <td style={{ color: '#d9dbe0' }}>{element.review}</td>
                     <td>
                       <button onClick={() => handleWatchedDelete(element.movie_id)}>Delete</button>
                     </td>

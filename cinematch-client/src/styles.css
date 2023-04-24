@@ -1,11 +1,15 @@
+:root {
+  --soft-white: #d9dbe0;
+}
+
 .modal-header {
   background-color: rgb(15, 15, 15);
-  color: white;
+  color: var(--soft-white);
 }
 
 .modal-body {
   background-color: rgb(43, 43, 43);
-  color: white;
+  color: var(--soft-white);
 }
 
 .modal-footer {
@@ -15,7 +19,7 @@
 .titleSpan {
     display: flex;
     justify-content: center;
-    color: white;
+    color: var(--soft-white);
 }
 
 .movie-card{
@@ -55,13 +59,13 @@
   .movie-card-body .empty-poster {
     width: 100%;
     height: 100%;
-    background-color: rgb(97, 97, 97);
+    background-color: rgb(70, 71, 75);
   }
 
   .movie-card-body .poster .empty-poster p {
     font-size: large;
     padding-top: 50%;
-    color: rgb(222, 222, 222);
+    color: var(--soft-white);
     text-align: center;
   }
 
@@ -82,4 +86,38 @@
   .movie-card-info p {
     padding-bottom: 8px;
     font-size: 14px;
+  }
+
+  .stats-page {
+    text-align: center;
+  }
+
+  .stats-page p {
+    color: var(--soft-white);
+    margin-top: 10px;
+  }
+
+  .stats-button button {
+    border: none;
+    border-radius: 3px;
+    color: var(--soft-white);
+    font-size: 20px;
+    padding: 15px 30px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgb(32, 33, 35)
+  }
+
+  .stats-button button:hover{
+    animation: 0.25s ease forwards buttonhover
+  }
+
+  @keyframes buttonhover {
+    0% {
+      
+      background-color: rgb(32, 33, 35);
+    }
+    100% {
+      background-color: rgb(28, 29, 33);
+    }
   }

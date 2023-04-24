@@ -1,3 +1,7 @@
+:root {
+  --soft-white: #d9dbe0;
+}
+
 body{
     background-color:rgb(42, 45, 49);
     
@@ -24,5 +28,22 @@ body{
 }
 
 .userpage h3, h4, th {
-  color: aliceblue;
+  color: var(--soft-white);
+}
+
+.userpage button {
+  color: var(--soft-white);
+  background-color: rgb(60, 65, 71);
+  border: none;
+  border-radius: 3px;
+}
+
+.userpage button:hover{
+  animation: 0.25s ease forwards buttonhover;
+}
+
+@keyframes buttonhover {
+  to{
+    color: rgb(200, 82, 82);
+  }
 }

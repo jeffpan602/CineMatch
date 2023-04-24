@@ -90,7 +90,7 @@ function RecommendationPage() {
           </div>
         ) : (
           <div className='loading'>
-            <h2 style={{color: 'white'}}>Start rating movies to get recommendations!</h2>
+            <h2>Start rating movies to get recommendations!</h2>
           </div>
         )}
       </div>
