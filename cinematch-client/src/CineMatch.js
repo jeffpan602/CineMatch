@@ -260,6 +260,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               </Row>
             </ModalBody>
             <ModalFooter>
+              
               {in_watched ?
                 <Button variant="dark" onClick={() => removeFromWatchedList({ id })}>Remove from Watched List</Button> :
                 <Button variant="dark" onClick={handleWatchedShow}>Add to Watched List</Button>}

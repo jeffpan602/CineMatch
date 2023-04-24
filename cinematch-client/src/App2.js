@@ -16,16 +16,24 @@ function App() {
   const [inWatchedList, setInWatchedList] = useState(false);
   const navigate = useNavigate();
   
-  const addToMovies = (id) => {
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
+
+  const addToMovies = (id, num2add) => {
     const tmp_URL = "https://api.themoviedb.org/3/movie/"+ id.toString() +"/recommendations?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&language=en-US&page=1"
-    //console.log(tmp_URL);
+    
     fetch(tmp_URL)
       .then((res) => res.json())
       .then(data => {
-        const fiveRec = data.results.slice(0,5);
-        console.log(movies.concat(fiveRec));
-        setMovies(prevMovies => prevMovies.concat(fiveRec));
-
+        const movRec = data.results.slice(0,num2add);
+        setMovies(prevMovies => shuffle(prevMovies.concat(movRec)));
+        
         
       })
       .catch((e) => console.log(e)); 
@@ -39,12 +47,33 @@ function App() {
       axios.get(`http://127.0.0.1:8000/api/watched/`)
       .then(response => {
         const mov = response.data;
-        console.log(response.data);
-        for (let i = 0; i < mov.length; i++) {
-          addToMovies(mov[i].movie_id)
-          
-          //console.log(movies);
+        const filteredMov = mov.filter(movie => movie.rating > 5);
+        let randNum = 0;
+        let movAdded = 0;
+        while (movAdded < 20) {
+          if (filteredMov.length == 0) {
+            console.log("broken");
+            break;
+          } else if (filteredMov.length == 1) {
+            randNum = Math.floor(Math.random() * filteredMov.length);
+            const num2add = 20 - movAdded;
+            movAdded = movAdded + num2add;
+            addToMovies(filteredMov[randNum].movie_id, num2add);
+            filteredMov.splice(randNum, 1);
+          } else {
+            randNum = Math.floor(Math.random() * filteredMov.length);
+            const num2add = 5;
+            movAdded = movAdded+5;
+            addToMovies(filteredMov[randNum].movie_id, num2add);
+            filteredMov.splice(randNum, 1);
+          }
         }
+        /*
+        setMovies(prevMovies => {console.log(prevMovies);
+          const shuffledMovies = shuffle(prevMovies);
+          console.log(shuffledMovies);
+          return shuffledMovies;});
+          */
       })
       .catch(error => {
         console.log(error);
