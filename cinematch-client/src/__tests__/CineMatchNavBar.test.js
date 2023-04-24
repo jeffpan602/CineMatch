@@ -1,7 +1,6 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import CineMatchNavBar from '../CineMatchNavBar';
 
 describe('Navbar component', () => {
@@ -12,4 +11,5 @@ describe('Navbar component', () => {
     expect(screen.getByText('User Page')).toBeInTheDocument();
     expect(screen.getByText('Stats')).toBeInTheDocument();
   });
+
 });

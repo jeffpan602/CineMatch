@@ -10,10 +10,11 @@ describe('App component', () => {
   });
 
   it('displays movies when retrieved from API', async () => {
+    //sample movies to render grid of movies
     const mockMovies = [
       { id: 1, title: 'Movie 1' },
-      { id: 2, title: 'Movie 2' },
-      { id: 3, title: 'Movie 3' }
+      { id: 20, title: 'Movie 20' },
+      { id: 30, title: 'Movie 30' }
     ];
     global.fetch = jest.fn(() =>
       Promise.resolve({
@@ -25,7 +26,13 @@ describe('App component', () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
     render(<App />);
+
+    //checking that movie with created sample movie id exists
     await waitFor(() => expect(screen.getByRole('1')).toBeInTheDocument());
+    expect(screen.getByRole('20')).toBeInTheDocument();
+    expect(screen.getByRole('30')).toBeInTheDocument();
+    
+    //checking that only the three sample movies were rendered
     expect(screen.getAllByRole('movie-card').length).toBe(3);
   });
 

@@ -31,16 +31,16 @@ export default function CineMatchNavBar(props) {
 
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container fluid>
-          <Navbar.Brand>
+          <Navbar.Brand role="toHome">
             <a href="/" style={{ fontSize: "1.2em", textDecoration: 'none', color: 'white' }}>CineMatch</a>
           </Navbar.Brand>
-          <Navbar.Brand>
+          <Navbar.Brand role="toTrending">
             <a href="/" style={{ textDecoration: 'none', color: 'white' }}>Trending</a>
           </Navbar.Brand>
-          <Navbar.Brand>
+          <Navbar.Brand role="toUser">
             <a href="/user" style={{ textDecoration: 'none', color: 'white' }}>User Page</a>
           </Navbar.Brand>
-          <Navbar.Brand>
+          <Navbar.Brand role="toStats">
             <a href="/stats" style={{ textDecoration: 'none', color: 'white' }}>Stats</a>
           </Navbar.Brand>
 

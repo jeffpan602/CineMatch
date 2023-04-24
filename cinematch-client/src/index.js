@@ -7,19 +7,6 @@ import UserPage from './UserPage';
 import Stats from './Stats'
 import ErrorPage from './Error-Page';
 
-// ReactDOM.render(
-//   <BrowserRouter>
-//     <Routes>
-//       <Route exact path="/" element={<App />} />
-//       <Route exact path='/home' element={<App />} />
-//       <Route path='/user' element={<UserPage />} />
-//       <Route path='/stats' element={<Stats />} />
-//     </Routes>
-
-//   </BrowserRouter>,
-//   document.getElementById('root')
-// );
-
 const router = createBrowserRouter([
   {
     path: '/',

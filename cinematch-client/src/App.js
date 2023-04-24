@@ -29,7 +29,7 @@ function App() {
           <div className="container">
             <div className="grid">
               {movies.map((movieReq) =>
-                <CineMatch key={movieReq.id} {...movieReq} role={movieReq.id}/>
+                <CineMatch key={movieReq.id} {...movieReq}/>
                 )}
             </div>
           </div>

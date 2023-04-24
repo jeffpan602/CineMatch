@@ -145,24 +145,24 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
       try {
         const res = await fetch(`${API_BASE}/movie/${id}?api_key=${API_KEY}&append_to_response=credits`);
         const data = await res.json();
-        const credits = data.credits;
+        
+        if (data.credits) {
+          const credits = data.credits;
 
-        // Get directors
-        const directors = credits.crew
-          .filter((person) => person.job === "Director")
-          .map((person) => person.name);
-        setDirector(directors);
+          // Get directors
+          const directors = credits.crew
+            .filter((person) => person.job === "Director")
+            .map((person) => person.name);
+          setDirector(directors);
 
-        // Get top 5 cast members
-        const cast = credits.cast.slice(0, 5).map((person) => person.name);
-        setCast(cast);
+          // Get top 5 cast members
+          const cast = credits.cast.slice(0, 5).map((person) => person.name);
+          setCast(cast);
+        }
       } catch (e) {
         console.log(e);
       }
     };
-
-
-
 
     getMovieDetails();
   }, [id]);
@@ -174,6 +174,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
         <div className="card-body" role={id}>
           <button type="button" className="btn btn-dark" onClick={() => handleShow({ id })}>View More</button>
           <Modal
+            role="main-modal"
             show={show}
             onHide={handleClose}
             size="lg"
@@ -188,7 +189,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
                   <Image src={API_IMG + poster_path} fluid />
                 </Col>
                 <Col md={8}>
-                  <p><strong>Release Date: {moment(release_date).format("MMMM Do, YYYY")}</strong></p>
+                  <p><strong>Release Date: {moment(release_date).format("MMMM DD, YYYY")}</strong></p>
                   <p>{overview}</p>
                   <Row>
                     <Col md={6}>
@@ -218,6 +219,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
             </ModalFooter>
           </Modal>
           <Modal
+            role="toWatch-modal"
             show={towatch_show}
             onHide={handleToWatchClose}
             centered>
