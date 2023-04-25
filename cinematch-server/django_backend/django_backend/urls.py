@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework import routers
 from to_watch import views as toWatchViews
 from watched import views as watchedViews
+from . import views
 
 router = routers.DefaultRouter()
 router.register(r'to_watch', toWatchViews.to_watchView, 'to_watch')
@@ -28,4 +29,5 @@ router.register(r'watched',  watchedViews.watchedView, 'watched')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('generate-pdf/', views.generate_pdf, name='generate_pdf'),
 ]
