@@ -22,3 +22,22 @@
     background-color: #457b9d;
     color: white;
 }
+
+.statsTable {
+    border-collapse: collapse;
+    margin: 25px;
+    max-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.statsTable thead tr {
+    background-color: #161616;
+    color: #ffffff;
+    text-align: center;
+}
+
+.statsTable td {
+    text-align: center;
+}
