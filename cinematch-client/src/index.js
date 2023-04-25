@@ -18,7 +18,6 @@ ReactDOM.render(
       <Route path="/recommended" element={<RecommendationPage/>} />
       <Route path="/results" element={<SearchPage/>}/>
     </Routes>
-    
   </BrowserRouter>,
   document.getElementById('root')
 );

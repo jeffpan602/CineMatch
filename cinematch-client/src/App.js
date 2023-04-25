@@ -9,7 +9,6 @@ import { MovieCard } from './components/MovieCard';
 const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
 
 function App() {
-
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ function App() {
   return (
     <>
       <div className="app">
-        <CineMatchNavBar setMovies={setMovies}/>
+        <CineMatchNavBar/>
         {movies.length > 0 ? (
           <div className="container">
             <div className="grid">

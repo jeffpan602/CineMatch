@@ -10,7 +10,6 @@ import CineMatchNavBar from './CineMatchNavBar';
 import axios from 'axios';
 
 function UserPage() {
-  const [movies, setMovies] = useState([]);
   const [toWatch, setToWatch] = useState([]);
   const [watched, setWatched] = useState([])
 
@@ -46,7 +45,7 @@ function UserPage() {
 
   return (
     <div className="userpage">
-      <CineMatchNavBar setMovies={setMovies} />
+      <CineMatchNavBar/>
       <span className="titleSpan">
         <h1>User Page</h1>
       </span>

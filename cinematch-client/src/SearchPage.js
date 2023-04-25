@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CineMatchNavBar from './CineMatchNavBar'
@@ -18,7 +18,7 @@ function SearchPage() {
       fetch(url)
       .then(res => res.json())
       .then(data => 
-        setMovies(data.results)
+        setMovies(data.results.filter(movie => movie.vote_count > 0 || movie.vote_average === 0).sort((a, b) => (a.popularity < b.popularity) ? 1 : -1))
         )     
     }
     catch (e) {
@@ -29,7 +29,7 @@ function SearchPage() {
   return (
     <>
       <div className="app">
-        <CineMatchNavBar setMovies={setMovies}/>
+        <CineMatchNavBar/>
         {movies.length > 0 ? (
           <div className="container">
             <div className="grid">

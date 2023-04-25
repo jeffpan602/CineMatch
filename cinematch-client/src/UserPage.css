@@ -33,16 +33,16 @@ body{
 
 .userpage button {
   color: var(--soft-white);
-  background-color: rgb(60, 65, 71);
+  background-color: rgb(32, 33, 35);;
   border: none;
   border-radius: 3px;
 }
 
 .userpage button:hover{
-  animation: 0.25s ease forwards buttonhover;
+  animation: 0.25s ease forwards delete-hover;
 }
 
-@keyframes buttonhover {
+@keyframes delete-hover {
   to{
     color: rgb(200, 82, 82);
   }

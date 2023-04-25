@@ -1,21 +1,14 @@
 import { React, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { Link, Navigate, createSearchParams, redirect, useNavigate } from 'react-router-dom';
-
-const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
-const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&query";
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CineMatchNavBar(props) {
-  const {
-    setMovies,
-  } = props;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
-  const params = [query];
 
   const searchMovie = async (e) => {
     console.log(`Got query "${query}" from NavBar`);
-    if(query != "") navigate(`/results?query=${query}`);
+    if(query !== "") navigate(`/results?query=${query}`);
   }
 
   const changeHandler = (e) => {
