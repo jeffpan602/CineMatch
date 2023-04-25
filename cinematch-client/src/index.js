@@ -11,12 +11,12 @@ import RecommendationPage from './RecommendationPage'
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route exact path="" element={<App />} />
-      <Route exact path="home" element={<App />} />
-      <Route path="user" element={<UserPage />} />
+      <Route exact path="/" element={<App />} />
+      <Route exact path="/home" element={<App />} />
+      <Route path="/user" element={<UserPage />} />
       <Route path="/stats" element={<Stats />} />
-      <Route path="recommended" element={<RecommendationPage/>} />
-      <Route path="results/searchQuery/:query" element={<SearchPage/>}/>
+      <Route path="/recommended" element={<RecommendationPage/>} />
+      <Route path="/results" element={<SearchPage/>}/>
     </Routes>
     
   </BrowserRouter>,

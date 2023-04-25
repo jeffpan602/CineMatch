@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CineMatchNavBar from './CineMatchNavBar'
@@ -8,7 +8,8 @@ import { MovieCard } from './components/MovieCard';
 function SearchPage() {
 
   const [movies, setMovies] = useState([]);
-  const { query } = useParams();
+  const [params] = useSearchParams();
+  const query = params.get("query");
 
   useEffect(() => {
     console.log(`Searching for "${query}"`);
@@ -23,7 +24,7 @@ function SearchPage() {
     catch (e) {
       console.log(e);
     }
-  }, [])
+  }, [query])
 
   return (
     <>
