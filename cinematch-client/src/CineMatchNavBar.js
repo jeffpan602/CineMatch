@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import "./styles.css";
 
 export default function CineMatchNavBar(props) {
   const [query, setQuery] = useState('');
@@ -16,7 +17,7 @@ export default function CineMatchNavBar(props) {
   }
 
   return (
-    <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
+    <Navbar expand="lg" variant="dark" sticky="top">
       <Container fluid>
         <Navbar.Brand>
           <Link to="/home" style={{ fontSize: "1.2em", textDecoration: 'none', color: 'white' }}>CineMatch</Link>

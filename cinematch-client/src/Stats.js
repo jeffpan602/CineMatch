@@ -88,63 +88,64 @@ function Stats() {
   return (
     <>
       <CineMatchNavBar setMovies={setMovies} />
-      <span className="titleSpan">
-        <h1>Stats</h1>
-      </span>
+      <div className="stats-page">
+        <span className="titleSpan">
+          <h1>Stats</h1>
+        </span>
 
-      <Table className='statsTable'>
-        <thead>
-          <tr>
-            <th>Actor Name</th>
-            <th>Number of Movies Watched</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topActors.map(([actorName, numAppearances]) => (
-            <tr key={actorName}>
-              <td>{actorName}</td>
-              <td>{numAppearances}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+        <div className='stats-tablecontainer'>
+          <Table className='statsTable'>
+            <thead>
+              <tr>
+                <th>Actor Name</th>
+                <th>Number of Movies Watched</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topActors.map(([actorName, numAppearances]) => (
+                <tr key={actorName}>
+                  <td>{actorName}</td>
+                  <td>{numAppearances}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
 
-      <Table className='statsTable'>
-        <thead>
-          <tr>
-            <th>Director Name</th>
-            <th>Number of Movies Watched</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topDirectors.map(([directorName, numAppearances]) => (
-            <tr key={directorName}>
-              <td>{directorName}</td>
-              <td>{numAppearances}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+          <Table className='statsTable'>
+            <thead>
+              <tr>
+                <th>Director Name</th>
+                <th>Number of Movies Watched</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topDirectors.map(([directorName, numAppearances]) => (
+                <tr key={directorName}>
+                  <td>{directorName}</td>
+                  <td>{numAppearances}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
 
-      <div>
-        <BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="users" fill="#8884d8" />
-        </BarChart>
+        <ResponsiveContainer className="stats-chart" width={500} height={300}>
+          <BarChart
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" tick={{fill: '#d9dbe0'}}/>
+            <YAxis tick={{fill: '#d9dbe0'}}/>
+            <Tooltip/>
+            <Legend />
+            <Bar dataKey="users" fill="#3b71f8" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </>
   );

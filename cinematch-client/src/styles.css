@@ -1,9 +1,10 @@
 :root {
   --soft-white: #d9dbe0;
+  --soft-black: #161617;
 }
 
 .modal-header {
-  background-color: rgb(15, 15, 15);
+  background-color: var(--soft-black);
   color: var(--soft-white);
 }
 
@@ -16,107 +17,119 @@
   background-color: rgb(60, 60, 60);
 }
 
+.navbar {
+  z-index: -1;
+  background-color: var(--soft-black);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
 .titleSpan {
-    display: flex;
-    justify-content: center;
-    color: var(--soft-white);
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  color: var(--soft-white);
 }
 
 .movie-card{
-    margin: 10px;
-    border-radius: 3px;
-    /*background-color: rgb(42, 45, 49);*/
-    background-color: transparent;
-  }
+  margin: 10px;
+  border-radius: 3px;
+  background-color: transparent;
+}
 
-  .movie-card-body{
-    position: relative;
-    margin: auto;
-  }
+.movie-card-body{
+  position: relative;
+  margin: auto;
+}
   
-  .movie-card:hover {
-    cursor: pointer;
-    transform: scale(1.025);
-    transition: 0.125s ease;
-    background-color: rgb(15, 15, 15, 0.75);
-  }
-  
-  .movie-card img {
-    width: 100%;
-    position: relative;
-    top: 0;
-  }
+.movie-card:hover {
+  cursor: pointer;
+  transform: scale(1.025);
+  transition: 0.125s ease;
+  background-color: rgb(15, 15, 15, 0.75);
+}
 
-  .movie-card Image {
-    width: 100%;
-  }
-  
-  .movie-card-body .poster {
-    width: 100%;
-    aspect-ratio: 2/3;
-  }
-  
-  .movie-card-body .empty-poster {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(70, 71, 75);
-  }
+.movie-card img {
+  width: 100%;
+  position: relative;
+  top: 0;
+}
 
-  .movie-card-body .poster .empty-poster p {
-    font-size: large;
-    padding-top: 50%;
-    color: var(--soft-white);
-    text-align: center;
-  }
+.movie-card Image {
+  width: 100%;
+}
 
-  .movie-card-info {
-    text-align: center;
-    color: rgb(226, 248, 255);
-  }
-  
-  .movie-card-info h2 {
-    margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: transparent;
-  }
+.movie-card-body .poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+}
 
-  .movie-card-info p {
-    padding-bottom: 8px;
-    font-size: 14px;
-  }
+.movie-card-body .empty-poster {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(70, 71, 75);
+}
 
-  .stats-page {
-    text-align: center;
-  }
+.movie-card-body .poster .empty-poster p {
+  font-size: large;
+  padding-top: 50%;
+  color: var(--soft-white);
+  text-align: center;
+}
 
-  .stats-page p {
-    color: var(--soft-white);
-    margin-top: 10px;
-  }
+.movie-card-info {
+  text-align: center;
+  color: rgb(226, 248, 255);
+}
 
-  .stats-button button {
-    border: none;
-    border-radius: 3px;
-    color: var(--soft-white);
-    font-size: 20px;
-    padding: 15px 30px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    background-color: rgb(32, 33, 35)
-  }
+.movie-card-info h2 {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+}
 
-  .stats-button button:hover{
-    animation: 0.25s ease forwards buttonhover
-  }
+.movie-card-info p {
+  padding-bottom: 8px;
+  font-size: 14px;
+}
 
-  @keyframes buttonhover {
-    0% {
-      background-color: rgb(32, 33, 35);
-    }
-    100% {
-      background-color: rgb(28, 29, 33);
-    }
-  }
+.stats-page {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.stats-tablecontainer {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.statsTable {
+  display: inline-table;
+  position: relative;
+}
+
+.statsTable {
+  border-collapse: collapse;
+  margin: 25px;
+  max-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.statsTable thead tr {
+  background-color: var(--soft-black);
+  color: var(--soft-white);
+  text-align: center;
+}
+
+.statsTable td {
+  text-align: center;
+  color: var(--soft-white)
+}
+
+.stats-chart {
+  margin: 0 auto;
+} 

@@ -2,6 +2,28 @@
 
 :root {
   --soft-white: #d9dbe0;
+  --soft-black: #161617;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--soft-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #474747;;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #626262;
+}
+
+@keyframes handle-hover{
+  0% { background: #555; }
+  100% { background: #888; }
 }
 
 body{
