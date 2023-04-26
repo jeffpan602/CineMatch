@@ -1,29 +1,15 @@
 import { React, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
-const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
-const API_SEARCH = "https://api.themoviedb.org/3/search/movie?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&query";
+import { Link, useNavigate } from 'react-router-dom';
+import "./styles.css";
 
 export default function CineMatchNavBar(props) {
-  const {
-    setMovies,
-  } = props;
   const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   const searchMovie = async (e) => {
-    e.preventDefault();
-    console.log("Searching");
-    try {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=b5d2f69cf0491ce4441c4d04c4befc3d&query=${query}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setMovies(data.results);
-    }
-    catch (e) {
-      console.log(e);
-    }
+    console.log(`Got query "${query}" from NavBar`);
+    if(query !== "") navigate(`/results?query=${query}`);
   }
 
   const changeHandler = (e) => {
@@ -31,7 +17,7 @@ export default function CineMatchNavBar(props) {
   }
 
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar expand="lg" variant="dark" sticky="top">
       <Container fluid>
         <Navbar.Brand>
           <Link to="/home" style={{ fontSize: "1.2em", textDecoration: 'none', color: 'white' }}>CineMatch</Link>
@@ -41,6 +27,9 @@ export default function CineMatchNavBar(props) {
         </Navbar.Brand>
         <Navbar.Brand>
           <Link to="/user" style={{ textDecoration: 'none', color: 'white' }}>User Page</Link>
+        </Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/recommended" style={{ textDecoration: 'none', color: 'white'}}>Recommended</Link>
         </Navbar.Brand>
         <Navbar.Brand>
           <Link to="/stats" style={{ textDecoration: 'none', color: 'white' }}>Stats</Link>

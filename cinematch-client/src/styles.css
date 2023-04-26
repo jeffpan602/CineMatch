@@ -1,43 +1,135 @@
+:root {
+  --soft-white: #d9dbe0;
+  --soft-black: #161617;
+}
+
 .modal-header {
-    background-color: #457b9d;
-    color: white;
-    border-color: #161616;
+  background-color: var(--soft-black);
+  color: var(--soft-white);
 }
 
 .modal-body {
-    background-color: #f1faee;
-    color: black;
-    border-color: #f1faee;
-    padding-bottom: 0%;
+  background-color: rgb(43, 43, 43);
+  color: var(--soft-white);
 }
 
 .modal-footer {
-    background-color: #f1faee;
-    border-color: #f1faee;
+  background-color: rgb(60, 60, 60);
+}
+
+.navbar {
+  z-index: -1;
+  background-color: var(--soft-black);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
 }
 
 .titleSpan {
-    display: flex;
-    justify-content: center;
-    background-color: #457b9d;
-    color: white;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  color: var(--soft-white);
+}
+
+.movie-card{
+  margin: 10px;
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.movie-card-body{
+  position: relative;
+  margin: auto;
+}
+  
+.movie-card:hover {
+  cursor: pointer;
+  transform: scale(1.025);
+  transition: 0.125s ease;
+  background-color: rgb(15, 15, 15, 0.75);
+}
+
+.movie-card img {
+  width: 100%;
+  position: relative;
+  top: 0;
+}
+
+.movie-card Image {
+  width: 100%;
+}
+
+.movie-card-body .poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+}
+
+.movie-card-body .empty-poster {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(70, 71, 75);
+}
+
+.movie-card-body .poster .empty-poster p {
+  font-size: large;
+  padding-top: 50%;
+  color: var(--soft-white);
+  text-align: center;
+}
+
+.movie-card-info {
+  text-align: center;
+  color: rgb(226, 248, 255);
+}
+
+.movie-card-info h2 {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.movie-card-info p {
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+.stats-page {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.stats-tablecontainer {
+  position: relative;
+  margin-bottom: 35px;
 }
 
 .statsTable {
-    border-collapse: collapse;
-    margin: 25px;
-    max-width: 400px;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  display: inline-table;
+  position: relative;
+}
+
+.statsTable {
+  border-collapse: collapse;
+  margin: 25px;
+  max-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .statsTable thead tr {
-    background-color: #161616;
-    color: #ffffff;
-    text-align: center;
+  background-color: var(--soft-black);
+  color: var(--soft-white);
+  text-align: center;
 }
 
 .statsTable td {
-    text-align: center;
+  text-align: center;
+  color: var(--soft-white)
 }
+
+.stats-chart {
+  margin: 0 auto;
+} 

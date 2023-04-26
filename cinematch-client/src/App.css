@@ -1,5 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i,700&display=swap");
 
+:root {
+  --soft-white: #d9dbe0;
+  --soft-black: #161617;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--soft-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #474747;;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #626262;
+}
+
+@keyframes handle-hover{
+  0% { background: #555; }
+  100% { background: #888; }
+}
+
 body{
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
@@ -7,6 +33,12 @@ body{
   text-decoration: none;
   list-style-type: none;
   outline: none;
+  height: 100%;
+  background-color: rgb(42, 45, 49);
+}
+
+.app{
+  background-color:rgb(42, 45, 49);
 }
 
 .container{
@@ -17,11 +49,36 @@ body{
 .grid{
   display: grid;
   margin-left: .5px;
-  grid-template-columns: repeat(4,1fr);
-  grid-gap: 0.2em;
+  grid-template-columns: repeat(5,1fr);
+  grid-gap: 1em;
   justify-content: center;
 }
 
-h2{
-  background-color: antiquewhite;
+@media (max-width: 1325px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.loading h2{
+  background-color: transparent;
+  opacity: 0;
+  color: var(--soft-white);
+  animation: appear 0s 2s forwards;
+}
+
+@keyframes appear{
+  to {opacity : 1;}
 }

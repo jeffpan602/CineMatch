@@ -1,0 +1,49 @@
+:root {
+  --soft-white: #d9dbe0;
+}
+
+body{
+    background-color:rgb(42, 45, 49);
+    
+  }
+
+.userpage .titleSpan {
+  background-color: rgb(42, 45, 49);
+}
+.userpage h1:hover{
+  animation: text-shine 3s linear infinite;
+  background: linear-gradient(to right, #78f3ca, #b4d657, #78f3ca);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes text-shine {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+.userpage h3, h4, th {
+  color: var(--soft-white);
+}
+
+.userpage button {
+  color: var(--soft-white);
+  background-color: rgb(32, 33, 35);;
+  border: none;
+  border-radius: 3px;
+}
+
+.userpage button:hover{
+  animation: 0.25s ease forwards delete-hover;
+}
+
+@keyframes delete-hover {
+  to{
+    color: rgb(200, 82, 82);
+  }
+}
