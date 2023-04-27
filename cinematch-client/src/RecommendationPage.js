@@ -13,6 +13,7 @@ function RecommendationPage() {
 
   const [movies, setMovies] = useState([]);
   const [inWatchedList, setInWatchedList] = useState(false);
+  const [canRecommend, setCanRecommend] = useState(true);
   const navigate = useNavigate();
   
   const shuffle = (array) => {
@@ -32,8 +33,6 @@ function RecommendationPage() {
       .then(data => {
         const movRec = data.results.slice(0,num2add);
         setMovies(prevMovies => shuffle(prevMovies.concat(movRec)));
-        
-        
       })
       .catch((e) => console.log(e)); 
   }
@@ -48,7 +47,7 @@ function RecommendationPage() {
         let movAdded = 0;
         while (movAdded < 20) {
           if (filteredMov.length === 0) {
-            console.log("broken");
+            setCanRecommend(false);
             break;
           } else if (filteredMov.length == 1) {
             randNum = Math.floor(Math.random() * filteredMov.length);
@@ -64,12 +63,6 @@ function RecommendationPage() {
             filteredMov.splice(randNum, 1);
           }
         }
-        /*
-        setMovies(prevMovies => {console.log(prevMovies);
-          const shuffledMovies = shuffle(prevMovies);
-          console.log(shuffledMovies);
-          return shuffledMovies;});
-          */
       })
       .catch(error => {
         console.log(error);
@@ -89,13 +82,13 @@ function RecommendationPage() {
             </div>
           </div>
         ) : (
-          <div className='loading'>
-            <h2>Start rating movies to get recommendations!</h2>
+          <div>
+            {!canRecommend && 
+            <h2>Start rating movies to get recommendations!</h2>}
           </div>
         )}
       </div>
     </>
-
   );
 }
 

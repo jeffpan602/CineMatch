@@ -7,12 +7,13 @@ import {
 } from 'react-bootstrap';
 import CineMatchNavBar from './CineMatchNavBar';
 import axios from 'axios';
-import { PieChart, Pie, Legend, Cell, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Legend, Cell, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 function Stats() {
+  const [hasMovies, setHasMovies] = useState(true);
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([])
   const [topActors, setTopActors] = useState([])
@@ -35,8 +36,9 @@ function Stats() {
 
   useEffect(() => {
     const getStats = async () => {
+      if(watched.length === 0) setHasMovies(false);
       const movieIds = watched.map(movie => movie.movie_id);
-      const movieRatings = watched.map(movie => movie.rating.toString())
+      const movieRatings = watched.map(movie => movie.rating.toString());
       try {
         const castsResponses = await axios.all(movieIds.map(id => axios.get(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`)));
         const responses = await axios.all(movieIds.map(id => axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)));
@@ -104,19 +106,36 @@ function Stats() {
     getStats();
   }, [watched]);
 
-  for (let num = Object.entries(topGenres).length; num >= 0; num--) {
+  for (let num = Object.entries(topGenres).length - 1; num >= 0; num--) {
     genreChartData.push({
       genre: Object.keys(topGenres)[num],
       count: Object.values(topGenres)[num]
     })
   }
 
-  for (let num = Object.entries(ratings).length; num >= 0; num--) {
-    ratingsChartData.push({
-      rating: Object.keys(ratings)[num],
-      count: Object.values(ratings)[num]
+  if(!hasMovies) {
+    genreChartData.push({
+      genre: "Watching paint dry",
+      count: 1
     })
   }
+
+  for (let i = Object.keys(ratings).length - 1; i >= 0; i--) {
+    ratingsChartData.push({
+      rating: parseInt(Object.keys(ratings)[i]),
+      count: Object.values(ratings)[i]
+    })
+  }
+  // boring but ridiculous code that makes the table prettier
+  for (let i = 0; i < 10; i++) {
+    if(!Object.keys(ratings).includes(`${i + 1}`)) {
+      ratingsChartData.push({
+        rating: i + 1,
+        count: 0
+      })
+    }
+  }
+  ratingsChartData.sort((a, b) => (a.rating < b.rating) ? -1 : 1);
 
   const [mostWatchedDecade, count] = Object.entries(releaseDate).reduce(
     ([decade, count], [currDecade, currCount]) => {
@@ -145,20 +164,21 @@ function Stats() {
   return (
     <>
       <CineMatchNavBar setMovies={setMovies} />
-      <span className="titleSpan">
-        <h1>Stats</h1>
-      </span>
+      <div className='stats-page'>
+        <span className="titleSpan">
+          <h1>Stats</h1>
+        </span>
 
-      <div class="container">
-        <div>
-          <Table className='statsTable'>
+        <div className='table-container'>
+          <Table className='stats-table'>
             <thead>
               <tr>
                 <th>Actor Name</th>
                 <th>Number of Movies Watched</th>
               </tr>
             </thead>
-            <tbody>
+            {hasMovies ? (
+              <tbody>
               {topActors.map(([actorName, numAppearances]) => (
                 <tr key={actorName}>
                   <td>{actorName}</td>
@@ -166,47 +186,25 @@ function Stats() {
                 </tr>
               ))}
             </tbody>
+            ) : (
+              <tbody>
+                <tr>
+                  <td>You haven't seen any actors perform yet...</td>
+                  <td>...because you haven't seen any movies</td>
+                </tr>
+            </tbody>
+            )}
           </Table>
-        </div>
 
-        <div>
-          <PieChart width={400} height={400}>
-            <Legend layout="horizontal" verticalAlign="bottom" align="middle" ></Legend>
-            <Pie
-              data={genreChartData}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={140}
-              fill="#8884d8"
-              dataKey="count"
-              nameKey="genre"
-              legendType='rect'
-            >
-              {genreChartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </div>
-
-        <div>
-          <h1 align="center">Total Runtime Watched:</h1>
-          <h1 align="center">{movieRuntime}</h1>
-        </div>
-      </div>
-
-      <div className='container'>
-        <div>
-          <Table className='statsTable'>
+          <Table className='stats-table'>
             <thead>
               <tr>
                 <th>Director Name</th>
                 <th>Number of Movies Watched</th>
               </tr>
             </thead>
-            <tbody>
+            {hasMovies ? (
+              <tbody>
               {topDirectors.map(([directorName, numAppearances]) => (
                 <tr key={directorName}>
                   <td>{directorName}</td>
@@ -214,33 +212,78 @@ function Stats() {
                 </tr>
               ))}
             </tbody>
+            ) : (
+              <tbody>
+                <tr>
+                  <td>Director who?</td>
+                  <td>Direct me to the nearest theater please</td>
+                </tr>
+              </tbody>
+            )}
           </Table>
         </div>
 
-        <div>
-          <BarChart
-            width={500}
-            height={300}
-            data={ratingsChartData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="rating" label={{ value: 'Movie Ratings', position: 'insideBottomRight', offset: 0 }} />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="count" fill="#D6B85A" />
-          </BarChart>
+        <div className='charts-container'>
+          <div className='stats-chart'>
+            <h1>Your Genre Preferences</h1>
+            <ResponsiveContainer className="stats-pie" width={400} height={400}>
+              <PieChart>
+                  <Legend layout="horizontal" verticalAlign="bottom" align="middle" ></Legend>
+                  <Pie
+                    data={genreChartData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={140}
+                    fill="#8884d8"
+                    dataKey="count"
+                    nameKey="genre"
+                    legendType='rect'
+                  >
+                    {genreChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className='stats-chart'>
+            <h1>Your Reviews</h1>
+            <ResponsiveContainer className="stats-bar" width={500} height={300}>
+              <BarChart
+                data={ratingsChartData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 25,
+                }}
+              >
+                <XAxis dataKey="rating" label={{ value: 'Movie Ratings', position: 'bottom', offset: 0 }} />
+                <YAxis />
+                <Tooltip contentStyle={{backgroundColor: "rgba(42, 45, 49, 0.75)"}} cursor={{fill: "rgb(65, 66, 72)" }}/>
+                <Bar dataKey="count" fill="#D6B85A" label={{ position: "insideBottom" }}>
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        <div>
-          <h1 align="center">Most Watched Decade:</h1>
-          <h1 align="center">{mostWatchedDecade}'s</h1>
+        <div className='text-container'>
+          <div className='stats-text'>
+            <h1>Total Runtime Watched:</h1>
+            <h2>{movieRuntime} minutes</h2>
+          </div>
+          <div className='stats-text'>
+            <h1>Most Watched Decade:</h1>
+            {hasMovies ? (
+              <h2>{mostWatchedDecade}'s</h2>
+            ) : (
+              <h2>Yesterday</h2>
+            )}
+          </div>
         </div>
       </div>
     </>

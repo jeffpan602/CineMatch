@@ -97,20 +97,24 @@
 
 .stats-page {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
-.stats-tablecontainer {
+.stats-page h1, h2 {
+  color: var(--soft-white);
+}
+
+.stats-page .table-container, .stats-page .chart-container, .stats-page .text-container {
   position: relative;
   margin-bottom: 35px;
 }
 
-.statsTable {
+.stats-table {
   display: inline-table;
   position: relative;
 }
 
-.statsTable {
+.stats-table {
   border-collapse: collapse;
   margin: 25px;
   max-width: 400px;
@@ -119,17 +123,32 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.statsTable thead tr {
+.stats-table thead tr {
   background-color: var(--soft-black);
   color: var(--soft-white);
   text-align: center;
 }
 
-.statsTable td {
+.stats-table td {
   text-align: center;
   color: var(--soft-white)
 }
 
 .stats-chart {
-  margin: 0 auto;
-} 
+  width: auto;
+  display: inline-table;
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.stats-pie, .stats-bar {
+  position: relative;
+  margin-top: 35px;
+}
+
+.stats-page .stats-text {
+  width: auto;
+  display: inline-block;
+  margin: 35px;
+  position: relative;
+}
