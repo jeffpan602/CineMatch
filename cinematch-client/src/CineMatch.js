@@ -7,22 +7,12 @@ import {
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import moment from "moment"
-import FormRange from 'react-bootstrap/esm/FormRange';
-
-
-
 
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const API_BASE = "https://api.themoviedb.org/3";
 const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 
-
-
-
 const CineMatch = ({ title, poster_path, vote_average, release_date, overview, id }) => {
-
-
-
 
   const [show, setShow] = useState(false);
   const [towatch_show, setToWatchShow] = useState(false);
@@ -32,22 +22,8 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
   const [cast, setCast] = useState([]);
   const [director, setDirector] = useState([]);
 
-
-
-
-
-
-
-
   const [userRating, setUserRating] = useState(5);
   const [userReview, setUserReview] = useState('');
-
-
-
-
-
-
-
 
   const handleShow = (id) => { setShow(true); movieInToWatchList(id); movieInWatchedList(id) }
   const handleClose = () => setShow(false);
@@ -60,7 +36,6 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
     setUserReview('');
   };
   const handleWatchedClose = () => setWatchedShow(false);
-
 
   // function to check if movie is in the to-watch list
   const movieInToWatchList = ({ id }) => {
@@ -284,7 +259,7 @@ const CineMatch = ({ title, poster_path, vote_average, release_date, overview, i
               <Form>
                 <FormGroup>
                   <FormLabel><h6>My Rating: {userRating}</h6></FormLabel>
-                  <FormRange
+                  <Form.Range
                     min={1}
                     max={10}
                     value={userRating}

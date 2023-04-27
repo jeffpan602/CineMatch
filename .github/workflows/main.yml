@@ -4,7 +4,9 @@ name: Build and Test React Application
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - tests
   pull_request:
     branches: [ main ]
 
@@ -22,5 +24,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd cinematch-client && npm ci
-      - run: cd cinematch-client && npm run build --if-present --no-warnings
-      - run: cd cinematch-client && npm test
+      - run: cd cinematch-client && npm test -- --coverage .

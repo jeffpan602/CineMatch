@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CineMatchNavBar from './CineMatchNavBar'
 import axios from "axios";
-import { MovieCard } from './components/MovieCard';
+import  MovieCard  from './components/MovieCard';
 
 
 const API_URL = "https://api.themoviedb.org/3/trending/movie/week?api_key=b5d2f69cf0491ce4441c4d04c4befc3d";
@@ -14,7 +13,6 @@ function RecommendationPage() {
   const [movies, setMovies] = useState([]);
   const [inWatchedList, setInWatchedList] = useState(false);
   const [canRecommend, setCanRecommend] = useState(true);
-  const navigate = useNavigate();
   
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -67,7 +65,7 @@ function RecommendationPage() {
       .catch(error => {
         console.log(error);
       });
-  }, [navigate])
+  }, [])
   
   return (
     <>

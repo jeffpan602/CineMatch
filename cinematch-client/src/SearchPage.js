@@ -3,13 +3,12 @@ import { useSearchParams } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CineMatchNavBar from './CineMatchNavBar'
-import { MovieCard } from './components/MovieCard';
+import  MovieCard  from './components/MovieCard';
 
 function SearchPage() {
 
   const [movies, setMovies] = useState([]);
-  const [params] = useSearchParams();
-  const query = params.get("query");
+  const query = new URLSearchParams(window.location.search).get("query");
 
   useEffect(() => {
     console.log(`Searching for "${query}"`);

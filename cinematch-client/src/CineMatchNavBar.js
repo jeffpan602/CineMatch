@@ -1,15 +1,12 @@
 import { React, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
 import "./styles.css";
 
 export default function CineMatchNavBar(props) {
   const [query, setQuery] = useState('');
-  const navigate = useNavigate();
 
   const searchMovie = async (e) => {
-    console.log(`Got query "${query}" from NavBar`);
-    if(query !== "") navigate(`/results?query=${query}`);
+    window.location.href = `/results?query=${query}`;
   }
 
   const changeHandler = (e) => {
@@ -19,20 +16,20 @@ export default function CineMatchNavBar(props) {
   return (
     <Navbar expand="lg" variant="dark" sticky="top">
       <Container fluid>
-        <Navbar.Brand>
-          <Link to="/home" style={{ fontSize: "1.2em", textDecoration: 'none', color: 'white' }}>CineMatch</Link>
+        <Navbar.Brand role="toHome">
+          <a href="/" style={{ fontSize: "1.2em", textDecoration: 'none', color: 'white' }}>CineMatch</a>
         </Navbar.Brand>
-        <Navbar.Brand>
-          <Link to="/home" style={{ textDecoration: 'none', color: 'white' }}>Trending</Link>
+        <Navbar.Brand role="toTrending">
+          <a href="/" style={{ textDecoration: 'none', color: 'white' }}>Trending</a>
         </Navbar.Brand>
-        <Navbar.Brand>
-          <Link to="/user" style={{ textDecoration: 'none', color: 'white' }}>User Page</Link>
+        <Navbar.Brand role="toUser">
+          <a href="/user" style={{ textDecoration: 'none', color: 'white' }}>User Page</a>
         </Navbar.Brand>
-        <Navbar.Brand>
-          <Link to="/recommended" style={{ textDecoration: 'none', color: 'white'}}>Recommended</Link>
+        <Navbar.Brand role="toRecommended">
+          <a href="/recommended" style={{ textDecoration: 'none', color: 'white'}}>Recommended</a>
         </Navbar.Brand>
-        <Navbar.Brand>
-          <Link to="/stats" style={{ textDecoration: 'none', color: 'white' }}>Stats</Link>
+        <Navbar.Brand role="toStats">
+          <a href="/stats" style={{ textDecoration: 'none', color: 'white' }}>Stats</a>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
@@ -43,15 +40,16 @@ export default function CineMatchNavBar(props) {
             style={{ maxHeight: '100px' }}
             navbarScroll></Nav>
 
-          <Form className="d-flex" onSubmit={searchMovie} autoComplete="off">
+          <Form className="d-flex" onSubmit={searchMovie} autoComplete="off" role="search">
             <FormControl
+              role="searchInput"
               type="search"
               placeholder="Movie Search"
               className="me-2"
               aria-label="search"
               name="query"
               value={query} onChange={changeHandler}></FormControl>
-            <Button variant="secondary" onClick={searchMovie}>Search</Button>
+            <Button variant="secondary" onClick={searchMovie} role="searchBtn">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
