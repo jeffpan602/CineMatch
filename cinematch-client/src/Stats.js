@@ -13,7 +13,6 @@ const API_KEY = "b5d2f69cf0491ce4441c4d04c4befc3d";
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 function Stats() {
-  const [hasMovies, setHasMovies] = useState(true);
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([])
   const [topActors, setTopActors] = useState([])
@@ -36,10 +35,9 @@ function Stats() {
 
   useEffect(() => {
     const getStats = async () => {
-      if(watched.length === 0) setHasMovies(false);
-      const movieIds = watched.map(movie => movie.movie_id);
-      const movieRatings = watched.map(movie => movie.rating.toString());
       try {
+        const movieIds = watched.map(movie => movie.movie_id);
+        const movieRatings = watched.map(movie => movie.rating.toString());
         const castsResponses = await axios.all(movieIds.map(id => axios.get(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`)));
         const responses = await axios.all(movieIds.map(id => axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`)));
         const genreResponses = responses.map(response => response.data.genres).flat()
@@ -93,6 +91,7 @@ function Stats() {
 
         const sortedActors = Object.entries(actors).sort((a, b) => b[1] - a[1]).slice(0, 10);
         const sortedDirectors = Object.entries(directors).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
         setTopActors(sortedActors);
         setTopDirectors(sortedDirectors)
         setMovieRuntime(totalRuntime)
@@ -113,7 +112,7 @@ function Stats() {
     })
   }
 
-  if(!hasMovies) {
+  if(Object.keys(watched).length === 0) {
     genreChartData.push({
       genre: "Watching paint dry",
       count: 1
@@ -146,7 +145,6 @@ function Stats() {
     },
     ["", 0]
   );
-  console.log([mostWatchedDecade, count])
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -177,7 +175,7 @@ function Stats() {
                 <th>Number of Movies Watched</th>
               </tr>
             </thead>
-            {hasMovies ? (
+            {(Object.keys(watched).length !== 0) ? (
               <tbody>
               {topActors.map(([actorName, numAppearances]) => (
                 <tr key={actorName}>
@@ -203,7 +201,7 @@ function Stats() {
                 <th>Number of Movies Watched</th>
               </tr>
             </thead>
-            {hasMovies ? (
+            {(Object.keys(watched).length !== 0) ? (
               <tbody>
               {topDirectors.map(([directorName, numAppearances]) => (
                 <tr key={directorName}>
@@ -278,7 +276,7 @@ function Stats() {
           </div>
           <div className='stats-text'>
             <h1>Most Watched Decade:</h1>
-            {hasMovies ? (
+            {(Object.keys(watched).length !== 0) ? (
               <h2>{mostWatchedDecade}'s</h2>
             ) : (
               <h2>Yesterday</h2>
