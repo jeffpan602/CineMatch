@@ -22,7 +22,7 @@ Project features include:
 
 Software Architecture & Design:
 
- - Frontent: Built using React.js 
+ - Frontend: Built using React.js 
  - Backend: Built using Django 
  - TMDB API used for acquiring movie data
  - fetchTMDB used for making HTTP requests 
