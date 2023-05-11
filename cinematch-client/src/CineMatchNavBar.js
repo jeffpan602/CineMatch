@@ -1,12 +1,15 @@
 import { React, useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+
 import "./styles.css";
 
 export default function CineMatchNavBar(props) {
   const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   const searchMovie = async (e) => {
-    window.location.href = `/results?query=${query}`;
+    if(query !== "") navigate(`/results?query=${query}`);
   }
 
   const changeHandler = (e) => {
