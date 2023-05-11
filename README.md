@@ -27,7 +27,7 @@ Software Architecture & Design:
  - TMDB API used for acquiring movie data
  - fetchTMDB used for making HTTP requests 
 
-## How to Run Locally
+# How to Run Locally
 
 Clone the CineMatch repo with your desired method 
 
